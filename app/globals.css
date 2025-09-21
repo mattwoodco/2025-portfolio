@@ -139,4 +139,9 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Gradient background for sections */
+  .gradient-bg {
+    @apply bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900;
+  }
 }

@@ -35,11 +35,13 @@ export function VerticalScrollSnapContainer({
         ref={scrollRef}
         className={`overflow-y-auto snap-y snap-mandatory h-[100dvh] ${className}`}
       >
-        {sections.map((section) => (
+        {sections.map((section, index) => (
           <section
             key={section.id}
             id={section.id}
-            className="snap-start h-[100dvh] flex items-center justify-center"
+            className={`snap-start h-[100dvh] flex items-center justify-center ${
+              index === 0 ? "gradient-bg" : ""
+            }`}
           >
             {section.children}
           </section>
