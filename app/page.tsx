@@ -69,7 +69,7 @@ export default function ScrollPage() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.645, 0.045, 0.355, 1.0],
+        ease: [0.645, 0.045, 0.355, 1.0] as [number, number, number, number],
       },
     },
   };
@@ -93,7 +93,7 @@ export default function ScrollPage() {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: [0.645, 0.045, 0.355, 1.0],
+        ease: [0.645, 0.045, 0.355, 1.0] as [number, number, number, number],
       },
     },
   };
@@ -172,7 +172,9 @@ export default function ScrollPage() {
       children: (
         <div className="mx-auto max-w-6xl space-y-16 text-left px-4">
           <div className="space-y-6">
-            <h2 className="text-5xl text-white font-serif md:text-7xl">Let's Connect</h2>
+            <h2 className="text-5xl text-white font-serif md:text-7xl">
+              Let's Connect
+            </h2>
             <p className="text-gray-400 text-lg md:text-xl">
               I'm always excited to work on new projects
             </p>
