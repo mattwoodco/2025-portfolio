@@ -1,17 +1,38 @@
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "700"],
+});
+
+const goudyOldStyle = localFont({
+  src: [
+    {
+      path: "../public/fonts/GoudyStM-webfont.woff",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/GoudyStM-Italic-webfont.woff",
+      weight: "400",
+      style: "italic",
+    },
+  ],
+  variable: "--font-goudy",
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "optional",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${goudyOldStyle.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
