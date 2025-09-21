@@ -1,8 +1,16 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useRef, useState, useEffect, Children, cloneElement, isValidElement } from "react";
+import {
+  Children,
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import type { AnimationDirection } from "@/hooks/use-project-card-animation";
+import type { ProjectCardProps } from "./project-card";
 
 interface ScrollSnapContainerProps {
   children: ReactNode;
@@ -16,7 +24,8 @@ export function HorizScrollSnapContainer({
   containerClassName = "",
 }: ScrollSnapContainerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [scrollDirection, setScrollDirection] = useState<AnimationDirection>("right");
+  const [scrollDirection, setScrollDirection] =
+    useState<AnimationDirection>("right");
   const lastScrollPos = useRef(0);
 
   const scrollToNext = () => {
@@ -31,9 +40,16 @@ export function HorizScrollSnapContainer({
     for (const child of children) {
       const childRect = child.getBoundingClientRect();
       // If child starts after current view or is partially visible on right
-      if (childRect.left >= containerRect.right - 10 ||
-          (childRect.right > containerRect.right && childRect.left < containerRect.right)) {
-        child.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      if (
+        childRect.left >= containerRect.right - 10 ||
+        (childRect.right > containerRect.right &&
+          childRect.left < containerRect.right)
+      ) {
+        child.scrollIntoView({
+          behavior: "smooth",
+          inline: "start",
+          block: "nearest",
+        });
         return;
       }
     }
@@ -52,9 +68,16 @@ export function HorizScrollSnapContainer({
       const child = children[i];
       const childRect = child.getBoundingClientRect();
       // If child ends before current view or is partially visible on left
-      if (childRect.right <= containerRect.left + 10 ||
-          (childRect.left < containerRect.left && childRect.right > containerRect.left)) {
-        child.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      if (
+        childRect.right <= containerRect.left + 10 ||
+        (childRect.left < containerRect.left &&
+          childRect.right > containerRect.left)
+      ) {
+        child.scrollIntoView({
+          behavior: "smooth",
+          inline: "start",
+          block: "nearest",
+        });
         return;
       }
     }
@@ -97,9 +120,9 @@ export function HorizScrollSnapContainer({
       >
         {Children.map(children, (child) => {
           if (isValidElement(child)) {
-            return cloneElement(child as any, {
+            return cloneElement(child, {
               animationDirection: scrollDirection,
-            });
+            } as ProjectCardProps);
           }
           return child;
         })}

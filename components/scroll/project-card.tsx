@@ -6,7 +6,7 @@ import {
   useProjectCardAnimation,
 } from "@/hooks/use-project-card-animation";
 
-interface ProjectCardProps {
+export interface ProjectCardProps {
   client: string;
   metric: string;
   backgroundColor: string;
