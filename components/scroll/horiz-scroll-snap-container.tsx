@@ -7,53 +7,64 @@ interface ScrollSnapContainerProps {
   children: ReactNode;
   className?: string;
   containerClassName?: string;
-  cardWidth?: string;
-  cardGap?: string;
-  cardMarginLeft?: string;
 }
 
-export function ScrollSnapContainer({
+export function HorizScrollSnapContainer({
   children,
   className = "",
   containerClassName = "",
-  cardWidth = "80dvw",
-  cardGap = "40dvw",
 }: ScrollSnapContainerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scrollToNext = () => {
     if (!scrollRef.current) return;
     const container = scrollRef.current;
+    const children = Array.from(container.children) as HTMLElement[];
 
-    // Calculate scroll amount based on card width + gap
-    // Convert dvw values to pixels
-    const vw = window.innerWidth / 100;
-    const cardWidthPx = parseFloat(cardWidth) * vw;
-    const gapPx = parseFloat(cardGap) * vw;
-    const scrollAmount = cardWidthPx + gapPx;
+    // Find the first child that's not fully visible on the right
+    const containerRect = container.getBoundingClientRect();
 
-    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    for (const child of children) {
+      const childRect = child.getBoundingClientRect();
+      // If child starts after current view or is partially visible on right
+      if (childRect.left >= containerRect.right - 10 ||
+          (childRect.right > containerRect.right && childRect.left < containerRect.right)) {
+        child.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+        return;
+      }
+    }
   };
 
   const scrollToPrev = () => {
     if (!scrollRef.current) return;
     const container = scrollRef.current;
+    const children = Array.from(container.children) as HTMLElement[];
 
-    // Calculate scroll amount based on card width + gap
-    // Convert dvw values to pixels
-    const vw = window.innerWidth / 100;
-    const cardWidthPx = parseFloat(cardWidth) * vw;
-    const gapPx = parseFloat(cardGap) * vw;
-    const scrollAmount = cardWidthPx + gapPx;
+    // Find the last child that's not fully visible on the left
+    const containerRect = container.getBoundingClientRect();
 
-    container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    for (let i = children.length - 1; i >= 0; i--) {
+      const child = children[i];
+      const childRect = child.getBoundingClientRect();
+      // If child ends before current view or is partially visible on left
+      if (childRect.right <= containerRect.left + 10 ||
+          (childRect.left < containerRect.left && childRect.right > containerRect.left)) {
+        child.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+        return;
+      }
+    }
   };
 
   return (
-    <div className={`relative ${containerClassName}`}>
+    <div className={`relative w-full ${containerClassName}`}>
       <div
         ref={scrollRef}
-        className={`flex overflow-x-auto snap-x snap-mandatory h-full items-center w-full bg-pink-200 ${className}`}
+        className={`flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide ${className} h-full w-full [&>*]:snap-start scroll-smooth`}
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          WebkitOverflowScrolling: "touch",
+        }}
       >
         {children}
       </div>

@@ -1,11 +1,6 @@
+import { HorizScrollSnapContainer } from "../components/scroll/horiz-scroll-snap-container";
 import { ProjectCard } from "../components/scroll/project-card";
-import { ScrollSnapContainer } from "../components/scroll/scroll-snap-container";
-
-const CARD_WIDTH_UNIT = 20; // base unit in dvw/dvh
-const CARD_WIDTH = `${100 - CARD_WIDTH_UNIT}dvw`; // 90dvw
-const CARD_HEIGHT = `${100 - CARD_WIDTH_UNIT * 0.5}dvh`; // 90dvh
-const CARD_GAP = `${CARD_WIDTH_UNIT * 2}dvw`; // 20dvw (gap is 10*2)
-const CARD_MARGIN_LEFT = `${CARD_WIDTH_UNIT * 0.5}dvw`; // 4dvw (0.4 of 10)
+import { VerticalScrollSnapContainer } from "../components/scroll/vertical-scroll-snap-container";
 
 const projectData = [
   { client: "Acme Corp", metric: "Revenue +25%" },
@@ -17,45 +12,50 @@ const projectData = [
 ];
 
 export default function ScrollPage() {
-  return (
-    <div className="overflow-y-auto snap-y snap-mandatory h-[100dvh]">
-      <section className="snap-start h-[100dvh] flex flex-col justify-center">
-        <h1>
-          <div>Matt Wood</div>
-          <div>Design Engineer, Austin, TX</div>
-        </h1>
-        <ul className="flex gap-2">
-          <h2 className="sr-only">Clients</h2>
-          {["jpmorgan", "nbc", "fmglobal", "dentsu", "bluenote"].map(
-            (company) => (
-              <li key={company}>{company}</li>
-            ),
-          )}
-        </ul>
-      </section>
-      <section className="snap-start h-[100dvh] flex items-center justify-center">
-        <ScrollSnapContainer
-          className={`gap-[${CARD_GAP}] pr-[${CARD_MARGIN_LEFT}]`}
-          containerClassName="h-full w-full"
-          cardWidth={CARD_WIDTH}
-          cardGap={CARD_GAP}
-        >
+  const sections = [
+    {
+      title: "Welcome",
+      id: "welcome",
+      children: (
+        <div className="flex flex-col justify-center">
+          <h1>
+            <div>Matt Wood</div>
+            <div>Design Engineer, Austin, TX</div>
+          </h1>
+          <ul className="flex gap-2">
+            <h2 className="sr-only">Clients</h2>
+            {["jpmorgan", "nbc", "fmglobal", "dentsu", "bluenote"].map(
+              (company) => (
+                <li key={company}>{company}</li>
+              ),
+            )}
+          </ul>
+        </div>
+      ),
+    },
+    {
+      title: "Projects",
+      id: "projects",
+      children: (
+        <HorizScrollSnapContainer containerClassName="h-full w-full">
           {projectData.map(({ client, metric }, index) => (
             <ProjectCard
               key={client}
               client={client}
               metric={metric}
               backgroundColor={index % 2 === 0 ? "red" : "blue"}
-              width={CARD_WIDTH}
-              height={CARD_HEIGHT}
-              // marginLeft={CARD_MARGIN_LEFT}
+              illustrationUrl="https://placehold.co/600x400"
             />
           ))}
-        </ScrollSnapContainer>
-      </section>
-      <section className="snap-start h-[100dvh] flex items-center justify-center">
-        Section 3
-      </section>
-    </div>
-  );
+        </HorizScrollSnapContainer>
+      ),
+    },
+    {
+      title: "Contact",
+      id: "contact",
+      children: <div>Section 3</div>,
+    },
+  ];
+
+  return <VerticalScrollSnapContainer sections={sections} />;
 }
