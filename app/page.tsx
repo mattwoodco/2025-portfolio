@@ -161,6 +161,7 @@ export default function ScrollPage() {
               metric={metric}
               backgroundColor={index % 2 === 0 ? "red" : "blue"}
               illustrationUrl="https://placehold.co/600x400"
+              animationDelay={0.15}
             />
           ))}
         </HorizScrollSnapContainer>
@@ -171,7 +172,7 @@ export default function ScrollPage() {
       id: "contact",
       children: (
         <div className="mx-auto max-w-6xl space-y-16 text-left px-4">
-          <div className="space-y-6">
+          <div className="space-y-1">
             <h2 className="text-5xl text-white font-serif md:text-7xl">
               Let's Connect
             </h2>
@@ -182,17 +183,22 @@ export default function ScrollPage() {
           <div className="space-y-4">
             <a
               href="https://www.linkedin.com/messaging/compose/?recipient=mattwoodco"
-              className="flex items-center gap-4 text-white hover:text-gray-300 transition-colors"
+              className="flex items-center gap-4 text-white group transition-colors"
             >
               <span className="text-lg">LinkedIn</span>
-              <span className="text-gray-400">linkedin.com/in/mattwoodco</span>
+
+              <span className="group-hover:underline text-gray-400">
+                linkedin.com/in/mattwoodco
+              </span>
             </a>
             <a
               href="mailto:hello@mattwood.co?subject=Hello%20from%20mattwood.co&body=Hi%20Matt,%0A%0AI%20found%20your%20portfolio%20and%20would%20love%20to%20connect!%0A%0A"
-              className="flex items-center gap-4 text-white hover:text-gray-300 transition-colors"
+              className="flex items-center gap-4 text-white group transition-colors"
             >
               <span className="text-lg">Email</span>
-              <span className="text-gray-400">hello@mattwood.co</span>
+              <span className="group-hover:underline text-gray-400">
+                hello@mattwood.co
+              </span>
             </a>
           </div>
         </div>

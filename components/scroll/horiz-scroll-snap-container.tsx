@@ -1,7 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useRef } from "react";
+import { useRef, useState, useEffect, Children, cloneElement, isValidElement } from "react";
+import type { AnimationDirection } from "@/hooks/use-project-card-animation";
 
 interface ScrollSnapContainerProps {
   children: ReactNode;
@@ -15,9 +16,12 @@ export function HorizScrollSnapContainer({
   containerClassName = "",
 }: ScrollSnapContainerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrollDirection, setScrollDirection] = useState<AnimationDirection>("right");
+  const lastScrollPos = useRef(0);
 
   const scrollToNext = () => {
     if (!scrollRef.current) return;
+    setScrollDirection("right");
     const container = scrollRef.current;
     const children = Array.from(container.children) as HTMLElement[];
 
@@ -37,6 +41,7 @@ export function HorizScrollSnapContainer({
 
   const scrollToPrev = () => {
     if (!scrollRef.current) return;
+    setScrollDirection("left");
     const container = scrollRef.current;
     const children = Array.from(container.children) as HTMLElement[];
 
@@ -55,18 +60,49 @@ export function HorizScrollSnapContainer({
     }
   };
 
+  // Detect scroll direction from touch/mouse swipes
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const currentScrollPos = container.scrollLeft;
+
+      if (currentScrollPos > lastScrollPos.current) {
+        setScrollDirection("right");
+      } else if (currentScrollPos < lastScrollPos.current) {
+        setScrollDirection("left");
+      }
+
+      lastScrollPos.current = currentScrollPos;
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <div className={`relative w-full ${containerClassName}`}>
       <div
         ref={scrollRef}
-        className={`flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide ${className} h-full w-full [&>*]:snap-start scroll-smooth`}
+        className={`flex gap-6 md:gap-8 lg:gap-10 overflow-x-auto snap-x snap-mandatory scrollbar-hide ${className} h-full w-full px-[12.5vw] md:px-[17.5vw] lg:px-[22.5vw] scroll-smooth`}
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",
           WebkitOverflowScrolling: "touch",
         }}
       >
-        {children}
+        {Children.map(children, (child) => {
+          if (isValidElement(child)) {
+            return cloneElement(child as any, {
+              animationDirection: scrollDirection,
+            });
+          }
+          return child;
+        })}
       </div>
 
       <button
