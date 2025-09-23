@@ -111,7 +111,7 @@ export function HorizScrollSnapContainer({
     <div className={`relative w-full ${containerClassName}`}>
       <div
         ref={scrollRef}
-        className={`flex gap-6 md:gap-8 lg:gap-10 overflow-x-auto snap-x snap-mandatory scrollbar-hide ${className} h-full w-full px-[12.5vw] md:px-[17.5vw] lg:px-[22.5vw] scroll-smooth`}
+        className={`flex gap-12 md:gap-8 lg:gap-16 overflow-x-auto snap-x snap-mandatory scrollbar-hide ${className} h-full w-full px-[12.5vw] md:px-[17.5vw] lg:px-[22.5vw] scroll-smooth`}
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",

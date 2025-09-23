@@ -80,7 +80,7 @@ export default function ScrollPage() {
       opacity: 1,
       transition: {
         staggerChildren: 0.05,
-        delayChildren: 0.5,
+        delayChildren: 0.2,
       },
     },
   };
@@ -102,9 +102,10 @@ export default function ScrollPage() {
     {
       title: "Welcome",
       id: "welcome",
+      foregroundColor: "#ffffff",
       children: (
         <motion.div
-          className="mx-auto max-w-6xl space-y-16 text-left md:space-y-24 px-4"
+          className="mx-auto max-w-6xl space-y-16 text-left md:space-y-24 px-[10vw] lg:px-4"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -112,7 +113,7 @@ export default function ScrollPage() {
           {/* Hero Title and Subtitle */}
           <div className="space-y-0">
             <motion.h1
-              className="text-6xl text-white leading-none tracking-tightest md:text-9xl font-serif"
+              className="text-[10vh] text-white leading-none tracking-tightest lg:text-9xl font-serif"
               variants={itemVariants}
             >
               Matt Wood
@@ -152,6 +153,7 @@ export default function ScrollPage() {
     {
       title: "Projects",
       id: "projects",
+      foregroundColor: "#ffffff",
       children: (
         <HorizScrollSnapContainer containerClassName="h-full w-full">
           {projectData.map(({ client, metric }, index) => (
@@ -159,7 +161,22 @@ export default function ScrollPage() {
               key={client}
               client={client}
               metric={metric}
-              backgroundColor={index % 2 === 0 ? "red" : "blue"}
+              className={`${
+                [
+                  "bg-pink-100",
+                  "bg-orange-100",
+                  "bg-yellow-100",
+                  "bg-lime-100",
+                  "bg-green-100",
+                  "bg-teal-100",
+                  "bg-cyan-100",
+                  "bg-sky-100",
+                  "bg-blue-100",
+                  "bg-indigo-100",
+                  "bg-violet-100",
+                  "bg-rose-100",
+                ][index % 12]
+              } shadow-lg`}
               illustrationUrl="https://placehold.co/600x400"
               animationDelay={0.15}
             />
@@ -170,13 +187,14 @@ export default function ScrollPage() {
     {
       title: "Contact",
       id: "contact",
+      foregroundColor: "#ffffff",
       children: (
-        <div className="mx-auto max-w-6xl space-y-16 text-left px-4">
-          <div className="space-y-1">
-            <h2 className="text-5xl text-white font-serif md:text-7xl">
+        <div className="mx-auto max-w-6xl space-y-16 text-left px-[10vw] lg:px-4">
+          <div className="space-y-0">
+            <h1 className="text-[10vh] text-white leading-none tracking-tightest lg:text-9xl font-serif">
               Let's Connect
-            </h2>
-            <p className="text-gray-400 text-lg md:text-xl">
+            </h1>
+            <p className="md:-mt-3 text-gray-400 font-mono text-sm md:pl-3 md:text-lg">
               I'm always excited to work on new projects
             </p>
           </div>
