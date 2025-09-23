@@ -60,7 +60,7 @@ export function ProjectCard({
     >
       <motion.div
         className={cn(
-          "size-full flex flex-col justify-center items-center text-gray-800 font-semibold rounded-3xl md:rounded-[4rem] transition-all duration-300 relative overflow-hidden",
+          "size-full flex flex-col justify-center items-center text-gray-800 font-semibold rounded-[4rem] transition-all duration-300 relative overflow-hidden",
           className,
         )}
         variants={containerVariants}
