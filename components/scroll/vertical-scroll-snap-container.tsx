@@ -24,6 +24,7 @@ export function VerticalScrollSnapContainer({
 }: VerticalScrollSnapContainerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const scrollToSection = (index: number) => {
     if (!scrollRef.current) return;
@@ -34,20 +35,25 @@ export function VerticalScrollSnapContainer({
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!scrollRef.current) return;
+      if (!scrollRef.current || !isInitialized) return;
       const container = scrollRef.current;
       const scrollPosition = container.scrollTop;
       const sectionHeight = window.innerHeight;
-      const newIndex = Math.round(scrollPosition / sectionHeight);
-      setCurrentSectionIndex(newIndex);
+      const newIndex = Math.floor(scrollPosition / sectionHeight + 0.5);
+      const clampedIndex = Math.max(0, Math.min(newIndex, sections.length - 1));
+      setCurrentSectionIndex(clampedIndex);
     };
 
     const container = scrollRef.current;
     if (container) {
+      // Initialize scroll position to top
+      container.scrollTo({ top: 0, behavior: "instant" });
+      setIsInitialized(true);
+
       container.addEventListener("scroll", handleScroll);
       return () => container.removeEventListener("scroll", handleScroll);
     }
-  }, []);
+  }, [isInitialized, sections.length]);
 
   return (
     <div className={`relative h-[100dvh] ${containerClassName}`}>
