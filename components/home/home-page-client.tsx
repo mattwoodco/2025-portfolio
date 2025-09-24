@@ -170,7 +170,7 @@ function ProjectsSection({ projects }: { projects: ProjectSummary[] }) {
   );
 }
 
-function ClassesSection() {
+function _ClassesSection() {
   return (
     <div className="mx-auto max-w-6xl space-y-16 text-left px-[10vw] lg:px-4">
       <div className="space-y-0">
@@ -212,7 +212,7 @@ function ClassesSection() {
   );
 }
 
-function BlogSection() {
+function _BlogSection() {
   return (
     <div className="mx-auto max-w-6xl space-y-16 text-left px-[10vw] lg:px-4">
       <div className="space-y-0">

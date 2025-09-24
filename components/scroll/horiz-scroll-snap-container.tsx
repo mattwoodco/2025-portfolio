@@ -192,7 +192,7 @@ export function HorizScrollSnapContainer({
 
       <button
         onClick={scrollToPrev}
-        className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 rounded-full p-3 shadow-lg border border-foreground/20 bg-foreground text-background backdrop-blur-sm transition-opacity duration-300 ${
+        className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 rounded-full p-3 shadow-lg bg-black/20 text-white backdrop-blur-sm transition-opacity duration-300 ${
           isAtStart ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
         aria-label="Previous"
@@ -217,7 +217,7 @@ export function HorizScrollSnapContainer({
 
       <button
         onClick={scrollToNext}
-        className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 rounded-full p-3 shadow-lg border border-foreground/20 bg-foreground text-background backdrop-blur-sm transition-opacity duration-300 ${
+        className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 rounded-full p-3 shadow-lg bg-black/20 text-white backdrop-blur-sm transition-opacity duration-300 ${
           isAtEnd ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
         aria-label="Next"

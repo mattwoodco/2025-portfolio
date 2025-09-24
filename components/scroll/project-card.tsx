@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { BadgeGroup } from "@/components/ui/badge";
 import {
   type AnimationDirection,
@@ -40,6 +40,7 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.3 });
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   const { containerVariants, titleVariants, metricVariants } =
     useProjectCardAnimation({
@@ -60,7 +61,7 @@ export function ProjectCard({
     >
       <motion.div
         className={cn(
-          "size-full flex flex-col justify-center items-center text-gray-800 font-semibold rounded-[4rem] transition-all duration-300 relative overflow-hidden",
+          "size-full flex flex-col justify-center items-center text-gray-800 font-semibold rounded-[4rem] transition-all duration-300 relative overflow-hidden bg-black",
           className,
         )}
         variants={containerVariants}
@@ -88,98 +89,83 @@ export function ProjectCard({
         />
 
         {/* Content overlay */}
-        <div className="relative z-10 flex flex-col justify-center items-center gap-4 p-8 md:p-12 max-w-4xl">
-          {/* Title with responsive clamp sizing */}
-          <motion.h2
-            className="font-serif text-[clamp(2.5rem,calc(2rem+4vw),6rem)] leading-tight text-center font-light"
-            variants={titleVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
-            {title || client}
-          </motion.h2>
-
-          {/* Client, Category, and Date - only show if we have a separate title */}
-          {title && (
-            <motion.div
-              className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-[clamp(1.25rem,calc(1rem+1.5vw),2rem)]"
+        <div className="relative z-10 flex flex-col h-full w-full">
+          {/* Main content group - flex-1 */}
+          <div className="flex-1 flex flex-col justify-center items-center gap-4 w-full p-8 md:p-12">
+            {/* Title with responsive clamp sizing */}
+            <motion.h2
+              className="font-serif text-[clamp(2.5rem,calc(2rem+4vw),6rem)] leading-none text-center font-light text-white"
               variants={titleVariants}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
             >
-              <span className="font-sans font-medium">{client}</span>
-              {category && (
-                <>
-                  <span className="hidden sm:inline opacity-50">•</span>
-                  <span className="font-mono opacity-80">{category}</span>
-                </>
-              )}
-              {date && (
-                <>
-                  <span className="hidden sm:inline opacity-50">•</span>
-                  <span className="font-mono opacity-80">{date}</span>
-                </>
-              )}
-            </motion.div>
-          )}
+              {client || title}
+            </motion.h2>
 
-          {/* Category and Date only - when no separate title */}
-          {!title && (category || date) && (
+            {/* Metric with responsive sizing */}
             <motion.div
-              className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-[clamp(1.25rem,calc(1rem+1.5vw),2rem)]"
-              variants={titleVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-            >
-              {category && (
-                <span className="font-mono opacity-80">{category}</span>
-              )}
-              {date && category && (
-                <span className="hidden sm:inline opacity-50">•</span>
-              )}
-              {date && <span className="font-mono opacity-80">{date}</span>}
-            </motion.div>
-          )}
-
-          {/* Metric with responsive sizing */}
-          <motion.div
-            className="font-mono text-[clamp(2rem,calc(1.5rem+2.5vw),4rem)] font-semibold"
-            variants={metricVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
-            {metric}
-          </motion.div>
-
-          {/* Tags/Skills badges */}
-          {tags.length > 0 && (
-            <motion.div
-              variants={metricVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              className="mt-2"
-            >
-              <BadgeGroup
-                tags={tags}
-                size="sm"
-                variant="outline"
-                maxVisible={5}
-                className="justify-center"
-              />
-            </motion.div>
-          )}
-
-          {/* Optional description */}
-          {description && (
-            <motion.p
-              className="font-sans text-[clamp(0.875rem,calc(0.75rem+0.5vw),1rem)] text-center  max-w-2xl"
+              className="font-serif text-[clamp(2rem,calc(1.5rem+2.5vw),4rem)] font-light leading-none italic text-white"
               variants={metricVariants}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
             >
-              {description}
-            </motion.p>
-          )}
+              {metric}
+            </motion.div>
+
+            {/* Optional description */}
+            {description && (
+              <motion.div
+                className="max-w-2xl text-left text-white"
+                variants={titleVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+              >
+                <p
+                  className={cn(
+                    "font-sans font-normal text-[clamp(0.875rem,calc(0.75rem+0.5vw),1rem)]",
+                    !isDescriptionExpanded && "line-clamp-3"
+                  )}
+                >
+                  {description}
+                </p>
+                {description.length > 120 && (
+                  <button
+                    onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                    className="mt-2 text-sm font-medium text-white/80 hover:text-white underline"
+                  >
+                    {isDescriptionExpanded ? "Read less" : "Read more"}
+                  </button>
+                )}
+
+                {/* Category and Date - hidden on mobile */}
+                {(category || date) && (
+                  <p className="font-sans font-normal text-[clamp(0.875rem,calc(0.75rem+0.5vw),1rem)] text-left text-white max-w-2xl mt-4 hidden md:block">
+                    {category && date ? `${date} / ${category}` : date || category}
+                  </p>
+                )}
+              </motion.div>
+            )}
+          </div>
+
+          {/* Bottom group - tags */}
+          <div className="flex flex-col items-start lg:items-center gap-4 w-full p-8 pb-16 md:p-12 flex-grow-0">
+            {/* Tags/Skills badges */}
+            {tags.length > 0 && (
+              <motion.div
+                variants={metricVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+              >
+                <BadgeGroup
+                  tags={tags.map(tag => tag.toUpperCase())}
+                  size="sm"
+                  variant="solid"
+                  maxVisible={5}
+                  className="justify-start lg:justify-center"
+                />
+              </motion.div>
+            )}
+          </div>
         </div>
       </motion.div>
     </div>

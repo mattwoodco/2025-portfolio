@@ -173,7 +173,7 @@ export function VerticalScrollSnapContainer({
               </Button>
             );
           })}
-          <div className="hidden md:flex items-center gap-3 ml-3">
+          <div className="hidden md:flex items-center gap-3 ml-8">
             <a
               href="https://www.linkedin.com/messaging/compose/?recipient=mattwoodco"
               target="_blank"
