@@ -19,7 +19,7 @@ export type ProjectSummary = {
 const PROJECTS_DIR = path.join(process.cwd(), "app", "projects");
 const PROJECT_ORDER_FILE = path.join(
   process.cwd(),
-  "../app/projects/project-order.json",
+  "app/projects/project-order.json",
 );
 
 function safeEvalObjectLiteral<T = unknown>(objectLiteral: string): T | null {
@@ -91,26 +91,20 @@ export async function getAllProjectSummaries(): Promise<ProjectSummary[]> {
     console.warn("Failed to load project order configuration:", error);
   }
 
-  // Sort by custom order if available, otherwise by date
+  // Filter and sort by custom order if available, otherwise by date
   if (customOrder.length > 0) {
-    summaries.sort((a, b) => {
+    // Only include projects that are in the order list
+    const filteredSummaries = summaries.filter((summary) =>
+      customOrder.includes(summary.slug),
+    );
+
+    filteredSummaries.sort((a, b) => {
       const aIndex = customOrder.indexOf(a.slug);
       const bIndex = customOrder.indexOf(b.slug);
-
-      // If both have custom order positions, sort by those
-      if (aIndex !== -1 && bIndex !== -1) {
-        return aIndex - bIndex;
-      }
-
-      // If only one has a custom order position, prioritize it
-      if (aIndex !== -1) return -1;
-      if (bIndex !== -1) return 1;
-
-      // If neither has a custom order, fall back to date sorting
-      const da = a.date ? new Date(a.date).getTime() : 0;
-      const db = b.date ? new Date(b.date).getTime() : 0;
-      return db - da;
+      return aIndex - bIndex;
     });
+
+    return filteredSummaries;
   } else {
     // Default date-based sorting when no custom order is configured
     summaries.sort((a, b) => {

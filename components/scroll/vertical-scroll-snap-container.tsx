@@ -147,7 +147,7 @@ export function VerticalScrollSnapContainer({
       </div>
 
       <nav className="fixed bottom-0 left-0 right-0 z-50 backdrop-blur-xl bg-black/10">
-        <div className="flex flex-row justify-center items-center w-full px-4 py-4 gap-2">
+        <div className="flex flex-row justify-center items-center w-full md:w-auto px-4 py-4 gap-2 overflow-x-auto">
           {sections.map((section, index) => {
             const currentSection = sections[currentSectionIndex];
             const navColor = currentSection?.foregroundColor || "#ffffff";
@@ -158,8 +158,8 @@ export function VerticalScrollSnapContainer({
                 key={section.id}
                 onClick={() => scrollToSection(index)}
                 variant="outline"
-                size="lg"
-                className="transition-all duration-300 cursor-pointer font-semibold text-base md:text-lg"
+                size="sm"
+                className="transition-all duration-300 cursor-pointer font-semibold text-sm md:text-lg"
                 style={{
                   color: navColor,
                   borderColor: isActive ? navColor : "transparent",
@@ -173,9 +173,11 @@ export function VerticalScrollSnapContainer({
               </Button>
             );
           })}
-          <div className="flex items-center gap-3 ml-6">
+          <div className="hidden md:flex items-center gap-3 ml-3">
             <a
-              href="https://linkedin.com/in/mattwoodco"
+              href="https://www.linkedin.com/messaging/compose/?recipient=mattwoodco"
+              target="_blank"
+              rel="noopener noreferrer"
               className="transition-colors"
               aria-label="LinkedIn"
               style={{
@@ -197,9 +199,11 @@ export function VerticalScrollSnapContainer({
               <EmailIcon className="h-5 w-5 md:h-6 md:w-6" />
             </a>
             <a
-              href="https://twitter.com/mattwoodco"
+              href="https://x.com/messages/compose?recipient_id=mattwoodco"
+              target="_blank"
+              rel="noopener noreferrer"
               className="transition-colors"
-              aria-label="Twitter"
+              aria-label="Message on X"
               style={{
                 color:
                   sections[currentSectionIndex]?.foregroundColor || "#ffffff",

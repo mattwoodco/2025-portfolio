@@ -8,6 +8,12 @@ import {
   JPMorganLogo,
   NBCUniversalLogo,
 } from "@/components/home/company-logos";
+import {
+  EmailIcon,
+  GitHubIcon,
+  LinkedInIcon,
+  XIcon,
+} from "@/components/home/connect-icons";
 import { HorizScrollSnapContainer } from "@/components/scroll/horiz-scroll-snap-container";
 import { ProjectCard } from "@/components/scroll/project-card";
 import { VerticalScrollSnapContainer } from "@/components/scroll/vertical-scroll-snap-container";
@@ -281,6 +287,36 @@ function ContactSection() {
             </span>
           </a>
         </div>
+        <div className="flex items-center gap-6 pt-4 md:hidden">
+          <a
+            href="https://linkedin.com/in/mattwoodco"
+            className="transition-colors text-white hover:text-gray-300"
+            aria-label="LinkedIn"
+          >
+            <LinkedInIcon className="h-6 w-6" />
+          </a>
+          <a
+            href="mailto:hello@mattwood.co?subject=Hello%20from%20mattwood.co&body=Hi%20Matt,%0A%0AI%20found%20your%20portfolio%20and%20would%20love%20to%20connect!%0A%0A"
+            className="transition-colors text-white hover:text-gray-300"
+            aria-label="Email"
+          >
+            <EmailIcon className="h-6 w-6" />
+          </a>
+          <a
+            href="https://twitter.com/mattwoodco"
+            className="transition-colors text-white hover:text-gray-300"
+            aria-label="Twitter"
+          >
+            <XIcon className="h-6 w-6" />
+          </a>
+          <a
+            href="https://github.com/mattwoodco"
+            className="transition-colors text-white hover:text-gray-300"
+            aria-label="GitHub"
+          >
+            <GitHubIcon className="h-6 w-6" />
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -332,18 +368,18 @@ export default function HomePageClient({ projects }: Props) {
       foregroundColor: "#ffffff",
       children: <ProjectsSection projects={projects} />,
     },
-    {
-      title: "Classes",
-      id: "classes",
-      foregroundColor: "#ffffff",
-      children: <ClassesSection />,
-    },
-    {
-      title: "Blog",
-      id: "blog",
-      foregroundColor: "#ffffff",
-      children: <BlogSection />,
-    },
+    // {
+    //   title: "Classes",
+    //   id: "classes",
+    //   foregroundColor: "#ffffff",
+    //   children: <ClassesSection />,
+    // },
+    // {
+    //   title: "Blog",
+    //   id: "blog",
+    //   foregroundColor: "#ffffff",
+    //   children: <BlogSection />,
+    // },
     {
       title: "Contact",
       id: "contact",
