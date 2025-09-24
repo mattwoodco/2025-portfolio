@@ -92,8 +92,8 @@ export function VerticalScrollSnapContainer({
                 key={section.id}
                 onClick={() => scrollToSection(index)}
                 variant="outline"
-                size="sm"
-                className="transition-all duration-300 cursor-pointer"
+                size="lg"
+                className="transition-all duration-300 cursor-pointer font-semibold text-base md:text-lg"
                 style={{
                   color: navColor,
                   borderColor: isActive ? navColor : "transparent",
