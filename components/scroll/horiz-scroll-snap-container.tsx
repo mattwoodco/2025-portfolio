@@ -27,6 +27,8 @@ export function HorizScrollSnapContainer({
   const [scrollDirection, setScrollDirection] =
     useState<AnimationDirection>("right");
   const lastScrollPos = useRef(0);
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(false);
 
   const scrollToNext = () => {
     if (!scrollRef.current) return;
@@ -88,7 +90,7 @@ export function HorizScrollSnapContainer({
     const container = scrollRef.current;
     if (!container) return;
 
-    const handleScroll = () => {
+    const updateAtStart = () => {
       const currentScrollPos = container.scrollLeft;
 
       if (currentScrollPos > lastScrollPos.current) {
@@ -98,12 +100,72 @@ export function HorizScrollSnapContainer({
       }
 
       lastScrollPos.current = currentScrollPos;
+
+      // Determine if the first child is aligned at the start of the container's viewport
+      const firstChild = container.firstElementChild as HTMLElement | null;
+      if (!firstChild) {
+        setIsAtStart(true);
+        return;
+      }
+      const containerRect = container.getBoundingClientRect();
+      const paddingLeft = parseFloat(
+        window.getComputedStyle(container).paddingLeft || "0",
+      );
+
+      // True start when the first child's left aligns with the container's content start (left + paddingLeft)
+      const contentStartLeft = containerRect.left + paddingLeft;
+      const children = Array.from(container.children) as HTMLElement[];
+      let firstVisibleIndex = -1;
+      let lastVisibleIndex = -1;
+      const paddingRight = parseFloat(
+        window.getComputedStyle(container).paddingRight || "0",
+      );
+      const contentEndLeft = containerRect.right - paddingRight; // mirror of content start relative to left coords
+      for (let i = 0; i < children.length; i++) {
+        const rect = children[i].getBoundingClientRect();
+        const overlaps =
+          rect.left < contentEndLeft - 1 && rect.right > contentStartLeft + 1;
+        if (overlaps) {
+          if (firstVisibleIndex === -1) firstVisibleIndex = i;
+          lastVisibleIndex = i;
+        }
+      }
+
+      // If the first visible item is the very first child, we're at the start
+      setIsAtStart(firstVisibleIndex <= 0);
+
+      // If the last visible item is the last child, we're at the end
+      setIsAtEnd(
+        lastVisibleIndex >= children.length - 1 && lastVisibleIndex !== -1,
+      );
     };
 
+    const handleScroll = () => updateAtStart();
+    const handleResize = () => updateAtStart();
+
     container.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+
+    // Initialize on mount and after a tick to catch layout
+    updateAtStart();
+    requestAnimationFrame(() => {
+      updateAtStart();
+      // Force snap to the first child aligned to start on initial load
+      const firstChild = container.firstElementChild as HTMLElement | null;
+      if (firstChild) {
+        firstChild.scrollIntoView({
+          behavior: "auto",
+          inline: "start",
+          block: "nearest",
+        });
+        // Recompute after snapping
+        requestAnimationFrame(updateAtStart);
+      }
+    });
 
     return () => {
       container.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -130,8 +192,11 @@ export function HorizScrollSnapContainer({
 
       <button
         onClick={scrollToPrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm rounded-full p-3 shadow-lg hover:bg-white transition-colors"
+        className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 rounded-full p-3 shadow-lg border border-foreground/20 bg-foreground text-background backdrop-blur-sm transition-opacity duration-300 ${
+          isAtStart ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
         aria-label="Previous"
+        aria-hidden={isAtStart}
         type="button"
       >
         <svg
@@ -152,8 +217,11 @@ export function HorizScrollSnapContainer({
 
       <button
         onClick={scrollToNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm rounded-full p-3 shadow-lg hover:bg-white transition-colors"
+        className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 rounded-full p-3 shadow-lg border border-foreground/20 bg-foreground text-background backdrop-blur-sm transition-opacity duration-300 ${
+          isAtEnd ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
         aria-label="Next"
+        aria-hidden={isAtEnd}
         type="button"
       >
         <svg

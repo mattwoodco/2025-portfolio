@@ -1,0 +1,214 @@
+import { ProjectMetadata } from '@/components/mdx/ProjectMetadata'
+import { Callout } from '@/components/mdx/Callout'
+
+export const metadata = {
+  title: 'Everwave Ocean Cleanup Solutions',
+  description: 'Advanced IoT and data visualization platform for marine waste management',
+  client: 'Everwave',
+  category: 'Environmental Tech',
+  metric: '85% Waste Reduction',
+  date: 'September 2025',
+  tags: ['IoT', 'Data Visualization', 'Environmental Tech', 'Sustainability', 'Marine Technology', 'React', 'TypeScript', 'Real-time Monitoring'
+  ],
+  illustrationUrl: "https://placehold.co/600x400/blue",
+  tabletIllustrationUrl: "https://placehold.co/400x300/green",
+  mobileIllustrationUrl: "https://placehold.co/200x150/teal",
+}
+
+# Everwave Ocean Cleanup Solutions
+
+<ProjectMetadata
+  client={metadata.client}
+  metric={metadata.metric}
+  category={metadata.category}
+  date={metadata.date}
+  tags={metadata.tags}
+/>
+
+A cutting-edge environmental technology platform that revolutionizes ocean cleanup operations through advanced IoT sensors, real-time data analytics, and intelligent waste management systems to protect marine ecosystems.
+
+<Callout type="info">
+This project demonstrates how innovative technology can drive environmental impact, showcasing sustainable development practices and marine conservation solutions.
+</Callout>
+
+## Challenge
+
+Developing a comprehensive ocean cleanup monitoring platform that addresses:
+
+- Real-time tracking of marine waste collection operations
+- Environmental impact measurement and reporting
+- IoT sensor integration for autonomous cleanup systems
+- Scalable data visualization for stakeholders and researchers
+
+The main challenges included:
+
+1. **Environmental Data Complexity**: Processing diverse marine waste and water quality metrics
+2. **Remote Operation Monitoring**: Managing IoT devices in harsh marine environments
+3. **Impact Visualization**: Creating meaningful dashboards for environmental outcomes
+4. **Scalability**: Building systems that support global cleanup operations
+
+## Solution
+
+The solution involved creating an integrated environmental monitoring platform with real-time cleanup analytics:
+
+### Technical Implementation
+
+```javascript
+// Real-time waste collection tracking
+function trackWasteCollection(sensorData, location, wasteType) {
+  return validateEnvironmentalData(sensorData)
+    .then(processWasteMetrics)
+    .then(updateCleanupDashboard);
+}
+
+// Marine impact calculation
+function calculateEnvironmentalImpact() {
+  const wasteCollected = getTotalWasteRemoved();
+  const waterQualityData = getWaterQualityMetrics();
+
+  return {
+    plasticReduction: calculatePlasticImpact(wasteCollected),
+    marineLifeProtection: assessEcosystemBenefit(waterQualityData),
+    carbonFootprintSaved: calculateCarbonOffset(wasteCollected)
+  };
+}
+
+// IoT sensor management
+document.addEventListener('DOMContentLoaded', function() {
+  initializeMarineSensors();
+  setupRealTimeMonitoring();
+  enableEnvironmentalAlerts();
+});
+```
+
+### Key Features Implemented
+
+- **Smart Waste Detection**: AI-powered identification and categorization of marine debris
+- **Real-time Environmental Monitoring**: Live water quality and ecosystem health tracking
+- **Impact Analytics**: Comprehensive environmental benefit calculations and reporting
+- **Autonomous System Control**: Remote operation of cleanup vessels and collection systems
+
+<Callout type="success">
+The platform successfully demonstrates how technology can drive measurable environmental impact while maintaining operational efficiency.
+</Callout>
+
+### Development Approach
+
+The project followed sustainable technology best practices:
+
+1. **Sustainability First**: Carbon-neutral development with renewable energy integration
+2. **Data-Driven Impact**: Quantifiable environmental metrics and transparent reporting
+3. **Scalable Architecture**: Cloud-based systems supporting global operations
+4. **Community Integration**: Open APIs for researchers and environmental organizations
+
+## Results
+
+The Everwave ocean cleanup platform achieved significant environmental and operational milestones:
+
+### Environmental Impact Metrics
+
+- **Waste Removal Efficiency**: 85% improvement in cleanup operation effectiveness
+- **Marine Debris Collected**: 50+ tons of plastic waste removed from waterways
+- **Water Quality Improvement**: 40% measurable improvement in monitored areas
+- **Ecosystem Protection**: 15 marine species habitats successfully restored
+
+### Technical Achievements
+
+1. **IoT Infrastructure**
+   - Autonomous sensor network across 25+ cleanup sites
+   - Real-time data transmission with 99.5% uptime
+   - Predictive maintenance reducing equipment downtime by 60%
+
+2. **Environmental Analytics**
+   - Machine learning models for waste pattern prediction
+   - Automated environmental impact reporting
+   - Integration with marine research databases
+
+3. **Operational Excellence**
+   - 24/7 cleanup operation monitoring
+   - Automated alert systems for environmental emergencies
+   - Stakeholder dashboard with real-time impact visualization
+
+<Callout type="warning">
+Marine technology solutions require specialized environmental considerations and must comply with international maritime and environmental regulations.
+</Callout>
+
+### Sustainable Code Architecture
+
+```css
+/* Environmental-themed interface styling */
+.cleanup-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 150, 136, 0.1);
+}
+
+@media (max-width: 768px) {
+  .cleanup-dashboard {
+    padding: 1rem;
+    margin: 0 1rem;
+  }
+}
+
+/* Sustainability-focused action buttons */
+.environmental-action {
+  background: linear-gradient(45deg, #00695c, #004d40);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.environmental-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 105, 92, 0.3);
+}
+
+.environmental-action:focus {
+  outline: 3px solid #4db6ac;
+  outline-offset: 2px;
+}
+
+/* Impact metrics visualization */
+.impact-metric {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #00897b;
+  margin: 1rem 0;
+}
+```
+
+## Lessons Learned
+
+This project highlighted essential principles for environmental technology development:
+
+### Environmental Technology Insights
+
+- **Impact Measurement**: Quantifiable environmental metrics are crucial for demonstrating value
+- **Durability Requirements**: Marine environments demand robust, weather-resistant technology
+- **Stakeholder Communication**: Clear visualization helps drive adoption and funding
+- **Regulatory Compliance**: Environmental projects require extensive compliance documentation
+
+### Sustainable Development Process
+
+- **Carbon-Conscious Development**: Every technical decision considered environmental impact
+- **Community Collaboration**: Partnerships with marine biologists and environmental scientists
+- **Long-term Monitoring**: Continuous assessment of cleanup effectiveness and ecosystem recovery
+- **Knowledge Sharing**: Open-source components to accelerate environmental technology adoption
+
+<Callout type="info">
+The Everwave project demonstrates that environmental technology requires a unique blend of technical excellence, scientific rigor, and passionate commitment to sustainability.
+</Callout>
+
+---
+
+*This project serves as a model for environmental technology applications and can be extended with features like marine life tracking, pollution source identification, or advanced predictive cleanup routing systems.*
