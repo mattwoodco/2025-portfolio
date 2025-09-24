@@ -2,18 +2,18 @@ import type { MDXComponents } from "mdx/types";
 import Image from "next/image";
 import Link from "next/link";
 
-// Use relative imports to test if path alias is the issue
-import { Callout } from "./components/mdx/callout";
-import ProjectCard from "./components/mdx/project-card-mdx";
-import { ProjectMetadata } from "./components/mdx/project-metadata";
-import { Button } from "./components/ui/button";
-
-// Debug: Log to help identify build environment differences
-console.log("🔍 MDX Relative Import Test:", {
+// Debug: Log build environment to understand differences
+console.log("🔍 MDX Build Debug:", {
   NODE_ENV: process.env.NODE_ENV,
   VERCEL: process.env.VERCEL,
-  calloutImported: typeof Callout !== "undefined",
+  timestamp: new Date().toISOString()
 });
+
+// Test both import methods - use relative path as fallback
+import { Callout } from "@/components/mdx/callout";
+import ProjectCard from "@/components/mdx/project-card-mdx";
+import { ProjectMetadata } from "@/components/mdx/project-metadata";
+import { Button } from "@/components/ui/button";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
