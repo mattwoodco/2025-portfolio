@@ -281,7 +281,6 @@ function ContactSection() {
             </span>
           </a>
         </div>
-
       </div>
     </div>
   );
