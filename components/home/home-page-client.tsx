@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter } from "lucide-react";
 import {
   BlueNoteRecordsLogo,
   DentsuLogo,
@@ -283,36 +282,6 @@ function ContactSection() {
           </a>
         </div>
 
-        <div className="flex items-center gap-6 pt-4">
-          <a
-            href="https://linkedin.com/in/mattwoodco"
-            className="text-white hover:text-gray-300 transition-colors"
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="h-6 w-6 md:h-8 md:w-8" />
-          </a>
-          <a
-            href="https://twitter.com/mattwoodco"
-            className="text-white hover:text-gray-300 transition-colors"
-            aria-label="Twitter"
-          >
-            <Twitter className="h-6 w-6 md:h-8 md:w-8" />
-          </a>
-          <a
-            href="https://x.com/mattwoodco"
-            className="text-white hover:text-gray-300 transition-colors"
-            aria-label="X.com"
-          >
-            <Twitter className="h-6 w-6 md:h-8 md:w-8" />
-          </a>
-          <a
-            href="https://github.com/mattwoodco"
-            className="text-white hover:text-gray-300 transition-colors"
-            aria-label="GitHub"
-          >
-            <Github className="h-6 w-6 md:h-8 md:w-8" />
-          </a>
-        </div>
       </div>
     </div>
   );

@@ -1,7 +1,13 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  EmailIcon,
+  GitHubIcon,
+  LinkedInIcon,
+  XIcon,
+} from "../home/connect-icons";
 import { Button } from "../ui/button";
 
 interface Section {
@@ -9,6 +15,7 @@ interface Section {
   id: string;
   children: ReactNode;
   foregroundColor?: string;
+  backgroundClass?: string;
 }
 
 interface VerticalScrollSnapContainerProps {
@@ -24,64 +31,93 @@ export function VerticalScrollSnapContainer({
 }: VerticalScrollSnapContainerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const rafPending = useRef<number | null>(null);
 
-  const scrollToSection = (index: number) => {
-    if (!scrollRef.current) return;
+  const scrollToSection = useCallback((index: number) => {
     const container = scrollRef.current;
-    const sectionHeight = window.innerHeight;
-    container.scrollTo({ top: sectionHeight * index, behavior: "smooth" });
-  };
+    if (!container) return;
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const sectionHeight = container.clientHeight || window.innerHeight;
+    container.scrollTo({
+      top: sectionHeight * index,
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+  }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!scrollRef.current || !isInitialized) return;
-      const container = scrollRef.current;
-      const scrollPosition = container.scrollTop;
-      const sectionHeight = window.innerHeight;
-      const newIndex = Math.floor(scrollPosition / sectionHeight + 0.5);
-      const clampedIndex = Math.max(0, Math.min(newIndex, sections.length - 1));
-      setCurrentSectionIndex(clampedIndex);
+    const container = scrollRef.current;
+    if (!container) return;
+
+    // Ensure starting at top without nonstandard behavior value
+    container.scrollTo({ top: 0, behavior: "auto" });
+
+    const onScroll = () => {
+      if (!scrollRef.current) return;
+      if (rafPending.current !== null) return;
+      rafPending.current = window.requestAnimationFrame(() => {
+        rafPending.current = null;
+        const el = scrollRef.current;
+        if (!el) return;
+        const scrollPosition = el.scrollTop;
+        const sectionHeight = el.clientHeight || window.innerHeight;
+        const newIndex = Math.floor(scrollPosition / sectionHeight + 0.5);
+        const clampedIndex = Math.max(
+          0,
+          Math.min(newIndex, sections.length - 1),
+        );
+        setCurrentSectionIndex(clampedIndex);
+      });
     };
 
-    const container = scrollRef.current;
-    if (container) {
-      // Initialize scroll position to top
-      container.scrollTo({ top: 0, behavior: "instant" });
-      setIsInitialized(true);
-
-      container.addEventListener("scroll", handleScroll);
-      return () => container.removeEventListener("scroll", handleScroll);
-    }
-  }, [isInitialized, sections.length]);
+    container.addEventListener("scroll", onScroll);
+    return () => {
+      container.removeEventListener("scroll", onScroll);
+      if (rafPending.current !== null) {
+        window.cancelAnimationFrame(rafPending.current);
+        rafPending.current = null;
+      }
+    };
+  }, [sections.length]);
 
   return (
     <div className={`relative h-[100dvh] ${containerClassName}`}>
       <div
         ref={scrollRef}
-        className={`overflow-y-auto snap-y snap-mandatory h-[100dvh] ${className}`}
+        className={[
+          "overflow-y-auto snap-y snap-mandatory h-[100dvh]",
+          className,
+        ]
+          .filter(Boolean)
+          .join(" ")}
       >
-        {sections.map((section, index) => (
-          <section
-            key={section.id}
-            id={section.id}
-            className={`snap-start h-[100dvh] flex items-center justify-center ${
-              index === 0
-                ? "gradient-bg"
-                : index === 1
-                  ? "bg-black"
-                  : index === 2
-                    ? "bg-white"
-                    : index === 3
-                      ? "bg-gray-900"
-                      : index === 4
-                        ? "gradient-bg-warm"
-                        : ""
-            }`}
-          >
-            {section.children}
-          </section>
-        ))}
+        {sections.map((section, index) => {
+          const defaultBg = [
+            "gradient-bg",
+            "bg-black",
+            "bg-white",
+            "bg-gray-900",
+            "gradient-bg-warm",
+          ][index];
+          const bgClass = section.backgroundClass || defaultBg || "";
+
+          return (
+            <section
+              key={section.id}
+              id={section.id}
+              className={[
+                "snap-start h-[100dvh] flex items-center justify-center",
+                bgClass,
+              ]
+                .filter(Boolean)
+                .join(" ")}
+            >
+              {section.children}
+            </section>
+          );
+        })}
       </div>
 
       <nav className="fixed bottom-0 left-0 right-0 z-50 backdrop-blur-xl bg-black/10">
@@ -105,11 +141,58 @@ export function VerticalScrollSnapContainer({
                 }}
                 type="button"
                 aria-label={`Scroll to ${section.title}`}
+                aria-current={isActive ? "page" : undefined}
               >
                 {section.title}
               </Button>
             );
           })}
+          <div className="flex items-center gap-3 ml-6">
+            <a
+              href="https://linkedin.com/in/mattwoodco"
+              className="transition-colors"
+              aria-label="LinkedIn"
+              style={{
+                color:
+                  sections[currentSectionIndex]?.foregroundColor || "#ffffff",
+              }}
+            >
+              <LinkedInIcon className="h-5 w-5 md:h-6 md:w-6" />
+            </a>
+            <a
+              href="mailto:hello@mattwood.co?subject=Hello%20from%20mattwood.co&body=Hi%20Matt,%0A%0AI%20found%20your%20portfolio%20and%20would%20love%20to%20connect!%0A%0A"
+              className="transition-colors"
+              aria-label="Email"
+              style={{
+                color:
+                  sections[currentSectionIndex]?.foregroundColor || "#ffffff",
+              }}
+            >
+              <EmailIcon className="h-5 w-5 md:h-6 md:w-6" />
+            </a>
+            <a
+              href="https://twitter.com/mattwoodco"
+              className="transition-colors"
+              aria-label="Twitter"
+              style={{
+                color:
+                  sections[currentSectionIndex]?.foregroundColor || "#ffffff",
+              }}
+            >
+              <XIcon className="h-5 w-5 md:h-6 md:w-6" />
+            </a>
+            <a
+              href="https://github.com/mattwoodco"
+              className="transition-colors"
+              aria-label="GitHub"
+              style={{
+                color:
+                  sections[currentSectionIndex]?.foregroundColor || "#ffffff",
+              }}
+            >
+              <GitHubIcon className="h-5 w-5 md:h-6 md:w-6" />
+            </a>
+          </div>
         </div>
       </nav>
     </div>
