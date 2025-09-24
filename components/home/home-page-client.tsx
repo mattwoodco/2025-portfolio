@@ -168,15 +168,15 @@ function ClassesSection() {
   return (
     <div className="mx-auto max-w-6xl space-y-16 text-left px-[10vw] lg:px-4">
       <div className="space-y-0">
-        <h1 className="text-[10vh] text-black leading-none tracking-tightest lg:text-9xl font-serif">
+        <h1 className="text-[10vh] text-white leading-none tracking-tightest lg:text-9xl font-serif">
           Classes
         </h1>
-        <p className="md:-mt-3 text-gray-600 font-mono text-sm md:pl-3 md:text-lg">
+        <p className="md:-mt-3 text-gray-400 font-mono text-sm md:pl-3 md:text-lg">
           Learning & Teaching Design
         </p>
       </div>
-      <div className="space-y-8 text-black">
-        <p className="text-lg md:text-xl leading-relaxed text-gray-700">
+      <div className="space-y-8 text-white">
+        <p className="text-lg md:text-xl leading-relaxed text-gray-300">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris.
@@ -184,19 +184,19 @@ function ClassesSection() {
         <div className="space-y-4">
           <a
             href="/"
-            className="text-sm md:text-base lg:text-lg text-blue-600 hover:text-blue-800 hover:underline block transition-colors"
+            className="text-sm md:text-base lg:text-lg text-gray-300 hover:text-white hover:underline block transition-colors"
           >
             Design Thinking Workshop Series
           </a>
           <a
             href="/"
-            className="text-sm md:text-base lg:text-lg text-blue-600 hover:text-blue-800 hover:underline block transition-colors"
+            className="text-sm md:text-base lg:text-lg text-gray-300 hover:text-white hover:underline block transition-colors"
           >
             Product Strategy Fundamentals
           </a>
           <a
             href="/"
-            className="text-sm md:text-base lg:text-lg text-blue-600 hover:text-blue-800 hover:underline block transition-colors"
+            className="text-sm md:text-base lg:text-lg text-gray-300 hover:text-white hover:underline block transition-colors"
           >
             User Research Methods
           </a>

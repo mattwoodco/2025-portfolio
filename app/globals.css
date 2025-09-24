@@ -202,25 +202,25 @@
     @apply bg-black;
   }
 
-  /* 2025 Trend: Silver Chrome Gradient - Light background for dark text */
+  /* 2025 Trend: Dark Chrome Gradient - Dark background for white text */
   .gradient-bg-chrome {
     background:
       radial-gradient(
         ellipse 100% 100% at 30% 20%,
-        rgba(248, 250, 252, 0.9),
-        rgba(255, 255, 255, 0.8)
+        rgba(71, 85, 105, 0.4),
+        rgba(0, 0, 0, 0)
       ),
       radial-gradient(
         ellipse 80% 80% at 70% 60%,
-        rgba(226, 232, 240, 0.7),
-        rgba(255, 255, 255, 0.6)
+        rgba(100, 116, 139, 0.3),
+        rgba(0, 0, 0, 0)
       ),
       radial-gradient(
         ellipse 60% 60% at 40% 90%,
-        rgba(203, 213, 225, 0.5),
-        rgba(255, 255, 255, 0.4)
+        rgba(148, 163, 184, 0.2),
+        rgba(0, 0, 0, 0)
       );
-    @apply bg-white;
+    @apply bg-black;
   }
 
   /* 2025 Trend: Ocean Deep Gradient */

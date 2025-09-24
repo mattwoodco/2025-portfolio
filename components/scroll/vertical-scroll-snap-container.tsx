@@ -53,8 +53,8 @@ export function VerticalScrollSnapContainer({
     if (!container) return;
 
     // Disable scroll restoration and force to top
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
     }
 
     // Force scroll to top immediately and aggressively
