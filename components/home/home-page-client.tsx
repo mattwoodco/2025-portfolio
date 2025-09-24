@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Github, Linkedin, Twitter } from "lucide-react";
 import {
   BlueNoteRecordsLogo,
   DentsuLogo,
@@ -164,6 +165,91 @@ function ProjectsSection({ projects }: { projects: ProjectSummary[] }) {
   );
 }
 
+function ClassesSection() {
+  return (
+    <div className="mx-auto max-w-6xl space-y-16 text-left px-[10vw] lg:px-4">
+      <div className="space-y-0">
+        <h1 className="text-[10vh] text-black leading-none tracking-tightest lg:text-9xl font-serif">
+          Classes
+        </h1>
+        <p className="md:-mt-3 text-gray-600 font-mono text-sm md:pl-3 md:text-lg">
+          Learning & Teaching Design
+        </p>
+      </div>
+      <div className="space-y-8 text-black">
+        <p className="text-lg md:text-xl leading-relaxed text-gray-700">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris.
+        </p>
+        <div className="space-y-4">
+          <a
+            href="/"
+            className="text-sm md:text-base lg:text-lg text-blue-600 hover:text-blue-800 hover:underline block transition-colors"
+          >
+            Design Thinking Workshop Series
+          </a>
+          <a
+            href="/"
+            className="text-sm md:text-base lg:text-lg text-blue-600 hover:text-blue-800 hover:underline block transition-colors"
+          >
+            Product Strategy Fundamentals
+          </a>
+          <a
+            href="/"
+            className="text-sm md:text-base lg:text-lg text-blue-600 hover:text-blue-800 hover:underline block transition-colors"
+          >
+            User Research Methods
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BlogSection() {
+  return (
+    <div className="mx-auto max-w-6xl space-y-16 text-left px-[10vw] lg:px-4">
+      <div className="space-y-0">
+        <h1 className="text-[10vh] text-white leading-none tracking-tightest lg:text-9xl font-serif">
+          Blog
+        </h1>
+        <p className="md:-mt-3 text-gray-400 font-mono text-sm md:pl-3 md:text-lg">
+          Thoughts on Design & Technology
+        </p>
+      </div>
+      <div className="space-y-8 text-white">
+        <p className="text-lg md:text-xl leading-relaxed text-gray-300">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </p>
+        <div className="space-y-4">
+          <a
+            href="/"
+            className="text-sm md:text-base lg:text-lg text-gray-300 hover:text-white hover:underline block transition-colors"
+          >
+            The Evolution of Design Systems in 2024
+          </a>
+          <a
+            href="/"
+            className="text-sm md:text-base lg:text-lg text-gray-300 hover:text-white hover:underline block transition-colors"
+          >
+            Building Better User Experiences Through Research
+          </a>
+          <a
+            href="/"
+            className="text-sm md:text-base lg:text-lg text-gray-300 hover:text-white hover:underline block transition-colors"
+          >
+            The Future of Product Design
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ContactSection() {
   return (
     <div className="mx-auto max-w-6xl space-y-16 text-left px-[10vw] lg:px-4">
@@ -175,25 +261,58 @@ function ContactSection() {
           {"I'm always excited to work on new projects"}
         </p>
       </div>
-      <div className="space-y-4">
-        <a
-          href="https://www.linkedin.com/messaging/compose/?recipient=mattwoodco"
-          className="flex items-center gap-4 text-white group transition-colors"
-        >
-          <span className="text-lg">LinkedIn</span>
-          <span className="group-hover:underline text-gray-400">
-            linkedin.com/in/mattwoodco
-          </span>
-        </a>
-        <a
-          href="mailto:hello@mattwood.co?subject=Hello%20from%20mattwood.co&body=Hi%20Matt,%0A%0AI%20found%20your%20portfolio%20and%20would%20love%20to%20connect!%0A%0A"
-          className="flex items-center gap-4 text-white group transition-colors"
-        >
-          <span className="text-lg">Email</span>
-          <span className="group-hover:underline text-gray-400">
-            hello@mattwood.co
-          </span>
-        </a>
+      <div className="space-y-8">
+        <div className="space-y-4">
+          <a
+            href="https://www.linkedin.com/messaging/compose/?recipient=mattwoodco"
+            className="flex items-center gap-4 text-white group transition-colors"
+          >
+            <span className="text-lg">LinkedIn</span>
+            <span className="group-hover:underline text-gray-400">
+              linkedin.com/in/mattwoodco
+            </span>
+          </a>
+          <a
+            href="mailto:hello@mattwood.co?subject=Hello%20from%20mattwood.co&body=Hi%20Matt,%0A%0AI%20found%20your%20portfolio%20and%20would%20love%20to%20connect!%0A%0A"
+            className="flex items-center gap-4 text-white group transition-colors"
+          >
+            <span className="text-lg">Email</span>
+            <span className="group-hover:underline text-gray-400">
+              hello@mattwood.co
+            </span>
+          </a>
+        </div>
+
+        <div className="flex items-center gap-6 pt-4">
+          <a
+            href="https://linkedin.com/in/mattwoodco"
+            className="text-white hover:text-gray-300 transition-colors"
+            aria-label="LinkedIn"
+          >
+            <Linkedin className="h-6 w-6 md:h-8 md:w-8" />
+          </a>
+          <a
+            href="https://twitter.com/mattwoodco"
+            className="text-white hover:text-gray-300 transition-colors"
+            aria-label="Twitter"
+          >
+            <Twitter className="h-6 w-6 md:h-8 md:w-8" />
+          </a>
+          <a
+            href="https://x.com/mattwoodco"
+            className="text-white hover:text-gray-300 transition-colors"
+            aria-label="X.com"
+          >
+            <Twitter className="h-6 w-6 md:h-8 md:w-8" />
+          </a>
+          <a
+            href="https://github.com/mattwoodco"
+            className="text-white hover:text-gray-300 transition-colors"
+            aria-label="GitHub"
+          >
+            <Github className="h-6 w-6 md:h-8 md:w-8" />
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -244,6 +363,18 @@ export default function HomePageClient({ projects }: Props) {
       id: "projects",
       foregroundColor: "#ffffff",
       children: <ProjectsSection projects={projects} />,
+    },
+    {
+      title: "Classes",
+      id: "classes",
+      foregroundColor: "#000000",
+      children: <ClassesSection />,
+    },
+    {
+      title: "Blog",
+      id: "blog",
+      foregroundColor: "#ffffff",
+      children: <BlogSection />,
     },
     {
       title: "Contact",

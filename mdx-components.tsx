@@ -1,9 +1,9 @@
 import type { MDXComponents } from "mdx/types";
 import Image from "next/image";
 import Link from "next/link";
-import { Callout } from "@/components/mdx/Callout";
-import ProjectCard from "@/components/mdx/ProjectCard";
-import { ProjectMetadata } from "@/components/mdx/ProjectMetadata";
+import { Callout } from "@/components/mdx/callout";
+import ProjectCard from "@/components/mdx/project-card-mdx";
+import { ProjectMetadata } from "@/components/mdx/project-metadata";
 import { Button } from "@/components/ui/button";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {

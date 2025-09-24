@@ -71,8 +71,12 @@ export function VerticalScrollSnapContainer({
                 : index === 1
                   ? "bg-black"
                   : index === 2
-                    ? "gradient-bg-warm"
-                    : ""
+                    ? "bg-white"
+                    : index === 3
+                      ? "bg-gray-900"
+                      : index === 4
+                        ? "gradient-bg-warm"
+                        : ""
             }`}
           >
             {section.children}
