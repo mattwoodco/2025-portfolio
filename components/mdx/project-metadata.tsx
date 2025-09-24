@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 interface ProjectMetadataProps {
@@ -17,8 +18,14 @@ export function ProjectMetadata({
   tags,
   className,
 }: ProjectMetadataProps) {
-  const hasMetadata =
-    client || metric || category || date || (tags && tags.length > 0);
+  const fields = [
+    { label: "Client", value: client },
+    { label: "Key Metric", value: metric },
+    { label: "Category", value: category },
+    { label: "Date", value: date },
+  ].filter((f) => Boolean(f.value));
+
+  const hasMetadata = fields.length > 0 || (tags && tags.length > 0);
 
   if (!hasMetadata) {
     return null;
@@ -32,50 +39,28 @@ export function ProjectMetadata({
       )}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* First column */}
         <div className="space-y-4">
-          {client && (
-            <dl>
+          {fields.slice(0, 2).map(({ label, value }) => (
+            <dl key={label}>
               <dt className="text-sm font-medium text-muted-foreground mb-1">
-                Client
+                {label}
               </dt>
-              <dd className="text-sm text-foreground">{client}</dd>
+              <dd className="text-sm text-foreground">{value}</dd>
             </dl>
-          )}
-
-          {metric && (
-            <dl>
-              <dt className="text-sm font-medium text-muted-foreground mb-1">
-                Key Metric
-              </dt>
-              <dd className="text-sm text-foreground">{metric}</dd>
-            </dl>
-          )}
+          ))}
         </div>
-
-        {/* Second column */}
         <div className="space-y-4">
-          {category && (
-            <dl>
+          {fields.slice(2, 4).map(({ label, value }) => (
+            <dl key={label}>
               <dt className="text-sm font-medium text-muted-foreground mb-1">
-                Category
+                {label}
               </dt>
-              <dd className="text-sm text-foreground">{category}</dd>
+              <dd className="text-sm text-foreground">{value}</dd>
             </dl>
-          )}
-
-          {date && (
-            <dl>
-              <dt className="text-sm font-medium text-muted-foreground mb-1">
-                Date
-              </dt>
-              <dd className="text-sm text-foreground">{date}</dd>
-            </dl>
-          )}
+          ))}
         </div>
       </div>
 
-      {/* Tags section - spans full width */}
       {tags && tags.length > 0 && (
         <div className="mt-6 pt-4 border-t border-border/50">
           <dl>
@@ -84,12 +69,9 @@ export function ProjectMetadata({
             </dt>
             <dd className="flex flex-wrap gap-2">
               {tags.map((tag) => (
-                <span
-                  key={tag.toLowerCase()}
-                  className="inline-flex items-center rounded-full bg-primary/10 text-primary px-2.5 py-0.5 text-xs font-medium"
-                >
+                <Badge key={tag.toLowerCase()} variant="secondary" size="sm">
                   {tag}
-                </span>
+                </Badge>
               ))}
             </dd>
           </dl>
