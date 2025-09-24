@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   BlueNoteRecordsLogo,
   DentsuLogo,
@@ -19,6 +18,7 @@ import { ProjectCard } from "@/components/scroll/project-card";
 import { VerticalScrollSnapContainer } from "@/components/scroll/vertical-scroll-snap-container";
 import { Badge } from "@/components/ui/badge";
 import type { ProjectSummary } from "@/lib/projects";
+import { motion } from "framer-motion";
 
 // Animation variants (shared across sections)
 const containerVariants = {
@@ -149,18 +149,18 @@ function ProjectsSection({ projects }: { projects: ProjectSummary[] }) {
           mobileIllustrationUrl={p.mobileIllustrationUrl}
           className={`${
             [
-              "bg-pink-100",
-              "bg-orange-100",
-              "bg-yellow-100",
-              "bg-lime-100",
-              "bg-green-100",
-              "bg-teal-100",
-              "bg-cyan-100",
-              "bg-sky-100",
-              "bg-blue-100",
-              "bg-indigo-100",
-              "bg-violet-100",
-              "bg-rose-100",
+              "bg-rose-950", // 0
+              "bg-blue-950", // 1
+              "bg-orange-950", // 2
+              "bg-violet-950", // 3
+              "bg-yellow-950", // 4
+              "bg-indigo-950", // 5
+              "bg-pink-950", // 6
+              "bg-cyan-950", // 7
+              "bg-lime-950", // 8
+              "bg-sky-950", // 9
+              "bg-green-950", // 10
+              "bg-teal-950", // 11
             ][index % 12]
           } shadow-lg`}
           animationDelay={0.15}

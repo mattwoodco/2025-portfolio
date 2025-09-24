@@ -1,11 +1,11 @@
-import { BadgeGroup } from "@/components/ui/badge";
-import {
-  useProjectCardAnimation,
-  type AnimationDirection,
-} from "@/hooks/use-project-card-animation";
-import { cn } from "@/lib/utils";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { BadgeGroup } from "@/components/ui/badge";
+import {
+  type AnimationDirection,
+  useProjectCardAnimation,
+} from "@/hooks/use-project-card-animation";
+import { cn } from "@/lib/utils";
 
 export interface ProjectCardProps {
   title?: string;
