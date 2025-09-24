@@ -1,11 +1,11 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
 import { BadgeGroup } from "@/components/ui/badge";
 import {
-  type AnimationDirection,
   useProjectCardAnimation,
+  type AnimationDirection,
 } from "@/hooks/use-project-card-animation";
 import { cn } from "@/lib/utils";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
 
 export interface ProjectCardProps {
   title?: string;
@@ -123,14 +123,17 @@ export function ProjectCard({
                 <p
                   className={cn(
                     "font-sans font-normal text-[clamp(0.875rem,calc(0.75rem+0.5vw),1rem)]",
-                    !isDescriptionExpanded && "line-clamp-3"
+                    !isDescriptionExpanded && "line-clamp-3",
                   )}
                 >
                   {description}
                 </p>
                 {description.length > 120 && (
                   <button
-                    onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                    type="button"
+                    onClick={() =>
+                      setIsDescriptionExpanded(!isDescriptionExpanded)
+                    }
                     className="mt-2 text-sm font-medium text-white/80 hover:text-white underline"
                   >
                     {isDescriptionExpanded ? "Read less" : "Read more"}
@@ -140,7 +143,9 @@ export function ProjectCard({
                 {/* Category and Date - hidden on mobile */}
                 {(category || date) && (
                   <p className="font-sans font-normal text-[clamp(0.875rem,calc(0.75rem+0.5vw),1rem)] text-left text-white max-w-2xl mt-4 hidden md:block">
-                    {category && date ? `${date} / ${category}` : date || category}
+                    {category && date
+                      ? `${date} / ${category}`
+                      : date || category}
                   </p>
                 )}
               </motion.div>
@@ -157,7 +162,7 @@ export function ProjectCard({
                 animate={isInView ? "visible" : "hidden"}
               >
                 <BadgeGroup
-                  tags={tags.map(tag => tag.toUpperCase())}
+                  tags={tags.map((tag) => tag.toUpperCase())}
                   size="sm"
                   variant="solid"
                   maxVisible={5}
