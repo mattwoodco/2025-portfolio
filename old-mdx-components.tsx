@@ -6,7 +6,7 @@ import Link from "next/link";
 console.log("🔍 MDX Build Debug:", {
   NODE_ENV: process.env.NODE_ENV,
   VERCEL: process.env.VERCEL,
-  timestamp: new Date().toISOString()
+  timestamp: new Date().toISOString(),
 });
 
 // Test both import methods - use relative path as fallback

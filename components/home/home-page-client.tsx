@@ -335,7 +335,7 @@ export default function HomePageClient({ projects }: Props) {
     {
       title: "Classes",
       id: "classes",
-      foregroundColor: "#000000",
+      foregroundColor: "#ffffff",
       children: <ClassesSection />,
     },
     {

@@ -31,6 +31,7 @@ export function VerticalScrollSnapContainer({
 }: VerticalScrollSnapContainerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [isInitialized, setIsInitialized] = useState(false);
   const rafPending = useRef<number | null>(null);
 
   const scrollToSection = useCallback((index: number) => {
@@ -51,8 +52,28 @@ export function VerticalScrollSnapContainer({
     const container = scrollRef.current;
     if (!container) return;
 
-    // Ensure starting at top without nonstandard behavior value
-    container.scrollTo({ top: 0, behavior: "auto" });
+    // Disable scroll restoration and force to top
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    // Force scroll to top immediately and aggressively
+    const forceScrollToTop = () => {
+      container.scrollTop = 0;
+      setCurrentSectionIndex(0);
+    };
+
+    forceScrollToTop();
+
+    // Use multiple strategies to ensure we stay at top
+    const timeouts = [
+      setTimeout(forceScrollToTop, 50),
+      setTimeout(() => {
+        forceScrollToTop();
+        setIsInitialized(true);
+      }, 100),
+      setTimeout(forceScrollToTop, 200),
+    ];
 
     const onScroll = () => {
       if (!scrollRef.current) return;
@@ -73,7 +94,9 @@ export function VerticalScrollSnapContainer({
     };
 
     container.addEventListener("scroll", onScroll);
+
     return () => {
+      timeouts.forEach(clearTimeout);
       container.removeEventListener("scroll", onScroll);
       if (rafPending.current !== null) {
         window.cancelAnimationFrame(rafPending.current);
@@ -87,7 +110,8 @@ export function VerticalScrollSnapContainer({
       <div
         ref={scrollRef}
         className={[
-          "overflow-y-auto snap-y snap-mandatory h-[100dvh]",
+          "overflow-y-auto snap-y snap-mandatory h-[100dvh] transition-opacity duration-300",
+          !isInitialized && "opacity-0",
           className,
         ]
           .filter(Boolean)
@@ -96,11 +120,13 @@ export function VerticalScrollSnapContainer({
         {sections.map((section, index) => {
           const defaultBg = [
             "gradient-bg",
-            "bg-black",
-            "bg-white",
-            "bg-gray-900",
             "gradient-bg-warm",
-          ][index];
+            "gradient-bg-chrome",
+            "gradient-bg-electric",
+            "gradient-bg-ocean",
+            "gradient-bg-aurora",
+            "gradient-bg-cosmic",
+          ][index % 7];
           const bgClass = section.backgroundClass || defaultBg || "";
 
           return (
