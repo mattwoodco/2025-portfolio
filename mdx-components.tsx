@@ -8,10 +8,20 @@ import { ProjectMetadata } from "./components/mdx/project-metadata";
 import { Button } from "./components/ui/button";
 
 // Debug: Log to help identify build environment differences
-console.log("🔍 MDX Relative Import Test:", {
+console.log("🔍 MDX Relative Import Debug:", {
   NODE_ENV: process.env.NODE_ENV,
   VERCEL: process.env.VERCEL,
+  buildTime: new Date().toISOString(),
   calloutImported: typeof Callout !== "undefined",
+  importPath: "./components/mdx/callout",
+  cwd: process.cwd(),
+  resolvedPath: (() => {
+    try {
+      return require.resolve("./components/mdx/callout.tsx");
+    } catch (e) {
+      return `FAILED: ${JSON.stringify(e, null, 2)}`;
+    }
+  })(),
 });
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {

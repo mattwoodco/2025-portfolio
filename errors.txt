@@ -1,0 +1,35 @@
+13:38:17.319 Running build in Washington, D.C., USA (East) – iad1
+13:38:17.320 Build machine configuration: 4 cores, 8 GB
+13:38:17.337 Cloning github.com/mattwoodco/2025-portfolio (Branch: main, Commit: f580c01)
+13:38:17.640 Cloning completed: 302.000ms
+13:38:18.605 Restored build cache from previous deployment (56WZPHGPR9n8xjPgjZMq2u4RbohS)
+13:38:19.294 Running "vercel build"
+13:38:19.711 Vercel CLI 48.1.6
+13:38:20.026 Installing dependencies...
+13:38:22.456 
+13:38:22.456 added 4 packages, removed 5 packages, and changed 14 packages in 2s
+13:38:22.456 
+13:38:22.457 171 packages are looking for funding
+13:38:22.457   run `npm fund` for details
+13:38:22.493 Detected Next.js version: 15.5.3
+13:38:22.497 Running "npm run build"
+13:38:22.615 
+13:38:22.615 > portfolio-2025@0.1.0 build
+13:38:22.615 > next build
+13:38:22.615 
+13:38:23.774    ▲ Next.js 15.5.3
+13:38:23.774 
+13:38:23.876    Creating an optimized production build ...
+13:38:32.334 Failed to compile.
+13:38:32.334 
+13:38:32.334 ./mdx-components.tsx
+13:38:32.335 Module not found: Can't resolve './components/mdx/callout'
+13:38:32.335 
+13:38:32.335 https://nextjs.org/docs/messages/module-not-found
+13:38:32.335 
+13:38:32.335 Import trace for requested module:
+13:38:32.335 ./app/projects/c-magazine/page.mdx
+13:38:32.335 
+13:38:32.337 
+13:38:32.337 > Build failed because of webpack errors
+13:38:32.380 Error: Command "npm run build" exited with 1
