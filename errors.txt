@@ -23,7 +23,7 @@
 13:38:32.334 Failed to compile.
 13:38:32.334 
 13:38:32.334 ./mdx-components.tsx
-13:38:32.335 Module not found: Can't resolve './components/mdx/callout'
+13:38:32.335 Module not found: Can't resolve './components/mdx/callout-mdx'
 13:38:32.335 
 13:38:32.335 https://nextjs.org/docs/messages/module-not-found
 13:38:32.335 
