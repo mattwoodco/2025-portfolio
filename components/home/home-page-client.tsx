@@ -168,17 +168,17 @@ function ContactSection() {
     <div className="mx-auto max-w-6xl space-y-16 text-left px-[10vw] lg:px-4">
       <div className="space-y-0">
         <h1 className="text-[10vh] text-white leading-none tracking-tightest lg:text-9xl font-serif">
-          {"Let's Connect"}
+          Let's Connect
         </h1>
         <p className="md:-mt-3 text-gray-400 font-mono text-sm md:pl-3 md:text-lg">
-          {"I'm always excited to work on new projects"}
+          I'm always excited to work on new projects
         </p>
       </div>
       <div className="space-y-8">
-        <div className="space-y-4">
+        <div className="space-y-4 w-fit">
           <a
             href="https://www.linkedin.com/messaging/compose/?recipient=mattwoodco"
-            className="flex items-center gap-4 text-white group transition-colors"
+            className="flex items-center gap-4 text-white group transition-colors w-fit"
           >
             <span className="text-lg">LinkedIn</span>
             <span className="group-hover:underline text-gray-400">
@@ -187,7 +187,7 @@ function ContactSection() {
           </a>
           <a
             href="mailto:hello@mattwood.co?subject=Hello%20from%20mattwood.co&body=Hi%20Matt,%0A%0AI%20found%20your%20portfolio%20and%20would%20love%20to%20connect!%0A%0A"
-            className="flex items-center gap-4 text-white group transition-colors"
+            className="flex items-center gap-4 text-white group transition-colors w-fit"
           >
             <span className="text-lg">Email</span>
             <span className="group-hover:underline text-gray-400">
