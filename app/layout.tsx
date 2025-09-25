@@ -1,8 +1,8 @@
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
-import { ThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -37,7 +37,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title:
-    "Matt Wood - Product Designer & Engineer | JPMorgan, NBC, FM Global, Dentsu, Blue Note Records | Austin TX",
+    "Matt Wood - Design Engineer | JPMorgan, NBC, FM Global, Dentsu, Blue Note Records | Austin TX",
   description:
     "Product Designer & Engineer based in Austin, TX. Portfolio showcasing work with JPMorgan, NBC, FM Global, Dentsu, and Blue Note Records.",
 };

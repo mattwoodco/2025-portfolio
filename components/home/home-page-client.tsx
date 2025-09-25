@@ -122,7 +122,7 @@ function WelcomeSection({ companies }: WelcomeSectionProps) {
           className="md:-mt-3 text-gray-400 font-mono text-sm md:pl-3 md:text-lg"
           variants={itemVariants}
         >
-          Product Designer & Engineer | Austin TX
+          Design Engineer | Austin TX
         </motion.p>
       </div>
 

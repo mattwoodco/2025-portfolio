@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { parse as parseJsonc } from "jsonc-parser";
 
 export type ProjectSummary = {
   slug: string;
@@ -19,7 +20,7 @@ export type ProjectSummary = {
 const PROJECTS_DIR = path.join(process.cwd(), "app", "projects");
 const PROJECT_ORDER_FILE = path.join(
   process.cwd(),
-  "app/projects/project-order.json",
+  "app/projects/project-order.jsonc",
 );
 
 function safeEvalObjectLiteral<T = unknown>(objectLiteral: string): T | null {
@@ -82,10 +83,10 @@ export async function getAllProjectSummaries(): Promise<ProjectSummary[]> {
   let customOrder: string[] = [];
   try {
     if (fs.existsSync(PROJECT_ORDER_FILE)) {
-      const orderConfig = JSON.parse(
+      const orderConfig = parseJsonc(
         fs.readFileSync(PROJECT_ORDER_FILE, "utf8"),
       );
-      customOrder = orderConfig.order || [];
+      customOrder = orderConfig?.order || [];
     }
   } catch (error) {
     console.warn("Failed to load project order configuration:", error);
