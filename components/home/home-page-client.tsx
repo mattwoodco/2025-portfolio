@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   BlueNoteRecordsLogo,
   DentsuLogo,
@@ -19,6 +18,7 @@ import { ProjectCard } from "@/components/scroll/project-card";
 import { VerticalScrollSnapContainer } from "@/components/scroll/vertical-scroll-snap-container";
 import { Badge } from "@/components/ui/badge";
 import type { ProjectSummary } from "@/lib/projects";
+import { motion } from "framer-motion";
 
 // Animation variants (shared across sections)
 const containerVariants = {
@@ -162,7 +162,6 @@ function ProjectsSection({ projects }: { projects: ProjectSummary[] }) {
     </HorizScrollSnapContainer>
   );
 }
-
 
 function ContactSection() {
   return (
