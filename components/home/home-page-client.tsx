@@ -154,7 +154,7 @@ function ProjectsSection({ projects }: { projects: ProjectSummary[] }) {
               "#bc6875", // 1
               "#f27a57", // 2
               "#ffa600", // 3
-            ][index % 4]
+            ][index % 4],
           }}
           animationDelay={0.15}
         />
