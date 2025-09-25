@@ -1,11 +1,11 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
 import { BadgeGroup } from "@/components/ui/badge";
 import {
-  type AnimationDirection,
   useProjectCardAnimation,
+  type AnimationDirection,
 } from "@/hooks/use-project-card-animation";
 import { cn } from "@/lib/utils";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
 
 export interface ProjectCardProps {
   title?: string;
@@ -21,6 +21,7 @@ export interface ProjectCardProps {
   animationDirection?: AnimationDirection;
   animationDelay?: number;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export function ProjectCard({

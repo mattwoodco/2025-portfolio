@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import {
   BlueNoteRecordsLogo,
   DentsuLogo,
@@ -18,7 +19,6 @@ import { ProjectCard } from "@/components/scroll/project-card";
 import { VerticalScrollSnapContainer } from "@/components/scroll/vertical-scroll-snap-container";
 import { Badge } from "@/components/ui/badge";
 import type { ProjectSummary } from "@/lib/projects";
-import { motion } from "framer-motion";
 
 // Animation variants (shared across sections)
 const containerVariants = {
@@ -147,22 +147,15 @@ function ProjectsSection({ projects }: { projects: ProjectSummary[] }) {
           illustrationUrl={p.illustrationUrl || "https://placehold.co/600x400"}
           tabletIllustrationUrl={p.tabletIllustrationUrl}
           mobileIllustrationUrl={p.mobileIllustrationUrl}
-          className={`${
-            [
-              "bg-rose-950", // 0
-              "bg-blue-950", // 1
-              "bg-orange-950", // 2
-              "bg-violet-950", // 3
-              "bg-yellow-950", // 4
-              "bg-indigo-950", // 5
-              "bg-pink-950", // 6
-              "bg-cyan-950", // 7
-              "bg-lime-950", // 8
-              "bg-sky-950", // 9
-              "bg-green-950", // 10
-              "bg-teal-950", // 11
-            ][index % 12]
-          } shadow-lg`}
+          className="shadow-lg"
+          style={{
+            backgroundColor: [
+              "#77606d", // 0
+              "#bc6875", // 1
+              "#f27a57", // 2
+              "#ffa600", // 3
+            ][index % 4]
+          }}
           animationDelay={0.15}
         />
       ))}
