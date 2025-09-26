@@ -11,8 +11,8 @@ export function useProjectCardAnimation({
   direction = "right",
   delay = 0.15,
 }: UseProjectCardAnimationProps = {}) {
-  // Reverse the direction: when scrolling right, text comes from left
-  const xOffset = direction === "right" ? -60 : 60;
+  // Use percentage-based transforms for consistent visual speed across different element widths
+  const xOffset = direction === "right" ? "-15%" : "15%";
 
   const containerVariants: Variants = {
     hidden: {
@@ -44,14 +44,14 @@ export function useProjectCardAnimation({
       opacity: 1,
       x: 0,
       transition: {
-        delay: 0.3,
-        duration: 0.6,
+        delay: 0.2,
+        duration: 0.8,
         ease: [0.25, 0.1, 0.25, 1],
       },
     },
     exit: {
       opacity: 0,
-      x: -xOffset,
+      x: direction === "right" ? "15%" : "-15%",
       transition: {
         duration: 0.3,
         ease: "easeIn",
@@ -68,16 +68,63 @@ export function useProjectCardAnimation({
       opacity: 0.9,
       x: 0,
       transition: {
-        delay: 0.4,
-        duration: 0.6,
+        delay: 0.35,
+        duration: 0.65,
         ease: [0.25, 0.1, 0.25, 1],
       },
     },
     exit: {
       opacity: 0,
-      x: -xOffset,
+      x: direction === "right" ? "15%" : "-15%",
       transition: {
         duration: 0.3,
+        ease: "easeIn",
+      },
+    },
+  };
+
+  const tagContainerVariants: Variants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        delay: 0.8,
+        staggerChildren: 0.25,
+        delayChildren: 0.3,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1,
+      },
+    },
+  };
+
+  const tagVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+      scale: 0.8,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1],
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -10,
+      scale: 0.8,
+      transition: {
+        duration: 0.2,
         ease: "easeIn",
       },
     },
@@ -87,5 +134,7 @@ export function useProjectCardAnimation({
     containerVariants,
     titleVariants,
     metricVariants,
+    tagContainerVariants,
+    tagVariants,
   };
 }

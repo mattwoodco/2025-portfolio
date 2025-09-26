@@ -1,11 +1,11 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
 import { BadgeGroup } from "@/components/ui/badge";
 import {
   type AnimationDirection,
   useProjectCardAnimation,
 } from "@/hooks/use-project-card-animation";
 import { cn } from "@/lib/utils";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export interface ProjectCardProps {
   title?: string;
@@ -42,7 +42,7 @@ export function ProjectCard({
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.3 });
 
-  const { containerVariants, titleVariants, metricVariants } =
+  const { containerVariants, titleVariants, metricVariants, tagContainerVariants, tagVariants } =
     useProjectCardAnimation({
       direction: animationDirection,
       delay: animationDelay,
@@ -64,7 +64,8 @@ export function ProjectCard({
           "size-full flex flex-col justify-center items-center text-gray-800 font-semibold rounded-[4rem] transition-all duration-300 relative overflow-hidden",
           // Liquid glass gradient border on mobile only
           "md:bg-black md:border-0",
-          "bg-gradient-to-br from-white/30 via-purple-500/20 to-blue-500/30 p-[2px]",
+          "bg-gradient-to-br from-white/30 via-purple-500/20 to-blue-500/30 p-[1px]",
+          "project-card-shimmer",
           className,
         )}
         variants={containerVariants}
@@ -95,10 +96,10 @@ export function ProjectCard({
           {/* Content overlay */}
           <div className="relative z-10 flex flex-col h-full w-full">
             {/* Main content group - flex-1 */}
-            <div className="flex-1 flex flex-col justify-start md:justify-center items-center gap-6 w-full p-8 md:p-12 pb-0">
+            <div className="flex-1 flex flex-col justify-start md:justify-center items-center gap-6 w-full p-8 md:p-12 pb-0 pt-16 md:pt-8">
               {/* Title with responsive clamp sizing */}
               <motion.h2
-                className="font-serif text-[clamp(1.25rem,calc(1rem+2vw),2rem)] md:text-[clamp(2.5rem,calc(2rem+4vw),6rem)] leading-none text-center font-light text-white"
+                className="font-serif text-[clamp(1.25rem,calc(1rem+2vw),2.25rem)] md:text-[clamp(2.25rem,calc(1.75rem+3.5vw),5.5rem)] leading-none text-center font-light text-white"
                 variants={titleVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
@@ -108,7 +109,7 @@ export function ProjectCard({
 
               {/* Metric with responsive sizing */}
               <motion.div
-                className="font-serif text-2xl md:text-[clamp(2rem,calc(1.5rem+2.5vw),4rem)] font-light leading-none italic text-white text-center"
+                className="font-serif text-[clamp(1.75rem,calc(1.5rem+1.5vw),2.5rem)] md:text-[clamp(2rem,calc(1.5rem+2.5vw),4rem)] font-light leading-none italic text-white text-center"
                 variants={metricVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
@@ -124,7 +125,7 @@ export function ProjectCard({
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
                 >
-                  <p className="font-sans font-normal text-[clamp(0.625rem,calc(0.55rem+0.5vw),0.75rem)] md:text-[clamp(0.875rem,calc(0.75rem+0.5vw),1rem)]">
+                  <p className="font-sans font-normal text-[clamp(0.75rem,calc(0.65rem+0.75vw),0.875rem)] md:text-[clamp(0.875rem,calc(0.75rem+0.5vw),1rem)]">
                     {description}
                   </p>
 
@@ -144,19 +145,17 @@ export function ProjectCard({
             <div className="flex flex-col items-center gap-4 w-full px-8 pb-12 md:p-12 flex-grow-0">
               {/* Tags/Skills badges */}
               {tags.length > 0 && (
-                <motion.div
-                  variants={metricVariants}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                >
-                  <BadgeGroup
-                    tags={tags.map((tag) => tag.toUpperCase())}
-                    size="sm"
-                    variant="solid"
-                    maxVisible={5}
-                    className="justify-center"
-                  />
-                </motion.div>
+                <BadgeGroup
+                  tags={tags.map((tag) => tag.toUpperCase())}
+                  size="sm"
+                  variant="solid"
+                  maxVisible={5}
+                  className="justify-center"
+                  animate={true}
+                  containerVariants={tagContainerVariants}
+                  itemVariants={tagVariants}
+                  isVisible={isInView}
+                />
               )}
             </div>
           </div>

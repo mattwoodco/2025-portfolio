@@ -1,4 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
+import { motion, type Variants } from "framer-motion";
 import type * as React from "react";
 
 import { cn } from "@/lib/utils";
@@ -50,6 +51,10 @@ export interface BadgeGroupProps {
   size?: BadgeProps["size"];
   className?: string;
   maxVisible?: number;
+  animate?: boolean;
+  containerVariants?: Variants;
+  itemVariants?: Variants;
+  isVisible?: boolean;
 }
 
 function BadgeGroup({
@@ -58,10 +63,41 @@ function BadgeGroup({
   size = "md",
   className,
   maxVisible,
+  animate = false,
+  containerVariants,
+  itemVariants,
+  isVisible = true,
 }: BadgeGroupProps) {
   const displayTags = maxVisible ? tags.slice(0, maxVisible) : tags;
   const remainingCount =
     maxVisible && tags.length > maxVisible ? tags.length - maxVisible : 0;
+
+  if (animate && containerVariants && itemVariants) {
+    return (
+      <motion.div
+        className={cn("flex flex-wrap items-center gap-2", className)}
+        variants={containerVariants}
+        initial="hidden"
+        animate={isVisible ? "visible" : "hidden"}
+        exit="exit"
+      >
+        {displayTags.map((tag) => (
+          <motion.div key={tag} variants={itemVariants}>
+            <Badge variant={variant} size={size}>
+              {tag}
+            </Badge>
+          </motion.div>
+        ))}
+        {remainingCount > 0 && (
+          <motion.div variants={itemVariants}>
+            <Badge variant="outline" size={size}>
+              +{remainingCount} more
+            </Badge>
+          </motion.div>
+        )}
+      </motion.div>
+    );
+  }
 
   return (
     <div className={cn("flex flex-wrap items-center gap-2", className)}>
