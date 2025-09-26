@@ -1,0 +1,28 @@
+import { ProjectMetadata } from '@/components/mdx/project-metadata-mdx'
+
+export const metadata = {
+  client: 'Airtime',
+  metadata: '500K+ Users',
+  description: 'In 2014 I joined a small Startup founded by Shaun Parker called airtime that was in the business of building group video chat software. I was hired as a front developer and quickly moved into product engineering and design leading the filled out of the browser based. I helped champion co-viewing as a first class feature and developed a powerful component design system, using the earliest versions of react.',
+  title: 'Airtime',
+  category: 'Social Media',
+  date: '2014 - 2016',
+  tags: [
+    "React",
+    "JavaScript",
+    "Product Design",
+    "UI/UX Design",
+    "Front-End Architecture"
+  ],
+  illustrationUrl: "https://placehold.co/600x400/blue",
+  tabletIllustrationUrl: "https://placehold.co/400x300/red",
+  mobileIllustrationUrl: "https://placehold.co/200x150/green",
+}
+
+<ProjectMetadata
+  client={metadata.client}
+  metric={metadata.metric}
+  category={metadata.category}
+  date={metadata.date}
+  tags={metadata.tags}
+/>
