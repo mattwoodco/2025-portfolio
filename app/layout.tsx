@@ -58,9 +58,21 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//vercel.live" />
 
         {/* Preconnect to critical external resources */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link rel="preconnect" href="https://vitals.vercel-analytics.com" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+          crossOrigin=""
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
+        <link
+          rel="preconnect"
+          href="https://vitals.vercel-analytics.com"
+          crossOrigin=""
+        />
 
         {/* Preload critical fonts to reduce critical path latency */}
         <link
@@ -79,7 +91,11 @@ export default function RootLayout({
         />
 
         {/* Critical CSS inlining hint */}
-        <link rel="preload" href="/_next/static/css/app/layout.css" as="style" />
+        <link
+          rel="preload"
+          href="/_next/static/css/app/layout.css"
+          as="style"
+        />
       </head>
       <body
         className={`${inter.variable} ${goudyOldStyle.variable} ${geistMono.variable} antialiased`}

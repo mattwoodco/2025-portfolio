@@ -17,11 +17,14 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     // Optimize for modern browsers
-    optimizePackageImports: ["lucide-react", "framer-motion", "@radix-ui/react-dropdown-menu", "@vercel/analytics"],
+    optimizePackageImports: [
+      "lucide-react",
+      "framer-motion",
+      "@radix-ui/react-dropdown-menu",
+      "@vercel/analytics",
+    ],
     // Enable modern compilation for better performance (production only for Turbopack compatibility)
     ...(process.env.NODE_ENV === "production" && { forceSwcTransforms: true }),
-    // Enable CSS optimization
-    optimizeCss: true,
   },
   // Enable source maps for better debugging and Lighthouse insights
   productionBrowserSourceMaps: true,
