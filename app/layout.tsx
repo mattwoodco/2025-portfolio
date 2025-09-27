@@ -27,8 +27,8 @@ const goudyOldStyle = localFont({
     },
   ],
   variable: "--font-goudy",
-  display: "optional",
-  preload: false,
+  display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
@@ -52,12 +52,21 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Preconnect to critical origins for better performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
-        {/* DNS prefetch for likely future requests */}
-        <link rel="dns-prefetch" href="https://vercel.com" />
+        {/* Preload critical fonts to reduce critical path latency */}
+        <link
+          rel="preload"
+          href="/fonts/GoudyStM-webfont.woff"
+          as="font"
+          type="font/woff"
+          crossOrigin=""
+        />
+        <link
+          rel="preload"
+          href="/fonts/GoudyStM-Italic-webfont.woff"
+          as="font"
+          type="font/woff"
+          crossOrigin=""
+        />
       </head>
       <body
         className={`${inter.variable} ${goudyOldStyle.variable} ${geistMono.variable} antialiased`}

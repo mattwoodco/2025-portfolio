@@ -18,7 +18,11 @@ const nextConfig: NextConfig = {
   experimental: {
     // Optimize for modern browsers
     optimizePackageImports: ["lucide-react", "framer-motion"],
+    // Enable modern compilation for better performance
+    forceSwcTransforms: true,
   },
+  // Enable compression
+  compress: true,
   transpilePackages: [],
   // Optimize webpack for better chunking
   webpack: (config, { dev, isServer }) => {
