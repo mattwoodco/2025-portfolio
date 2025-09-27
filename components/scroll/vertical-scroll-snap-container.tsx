@@ -15,7 +15,6 @@ import {
 } from "../home/connect-icons";
 import { Button } from "../ui/button";
 
-
 interface Section {
   title: string;
   id: string;
@@ -98,7 +97,6 @@ export function VerticalScrollSnapContainer({
           Math.min(newIndex, sections.length - 1),
         );
         setCurrentSectionIndex(clampedIndex);
-
       });
     };
 
@@ -134,7 +132,7 @@ export function VerticalScrollSnapContainer({
           .join(" ")}
         style={{
           WebkitOverflowScrolling: "touch",
-          touchAction: "pan-y"
+          touchAction: "pan-y",
         }}
       >
         {sections.map((section, index) => {
@@ -165,7 +163,7 @@ export function VerticalScrollSnapContainer({
                     section.children as React.ReactElement<any>,
                     {
                       onHorizontalScroll: handleHorizontalScroll,
-                      showVideo: currentSectionIndex === 1,
+                      ...(index === 1 && currentSectionIndex === 1 && { showVideo: true }),
                     },
                   )
                 : section.children}

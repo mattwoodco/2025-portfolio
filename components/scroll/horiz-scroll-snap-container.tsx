@@ -100,6 +100,22 @@ export function HorizScrollSnapContainer({
     }
   };
 
+  // Initial setup effect - runs once on mount
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    // Force snap to the first child aligned to start on initial load
+    const firstChild = container.firstElementChild as HTMLElement | null;
+    if (firstChild) {
+      firstChild.scrollIntoView({
+        behavior: "auto",
+        inline: "start",
+        block: "nearest",
+      });
+    }
+  }, []); // Empty dependency array - runs only once on mount
+
   // Detect scroll direction from touch/mouse swipes
   useEffect(() => {
     const container = scrollRef.current;
@@ -183,43 +199,21 @@ export function HorizScrollSnapContainer({
     container.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleResize);
 
-    // Initialize on mount and after a tick to catch layout
+    // Initialize
     updateAtStart();
-    requestAnimationFrame(() => {
-      updateAtStart();
-      // Force snap to the first child aligned to start on initial load
-      const firstChild = container.firstElementChild as HTMLElement | null;
-      if (firstChild) {
-        firstChild.scrollIntoView({
-          behavior: "auto",
-          inline: "start",
-          block: "nearest",
-        });
-        // Recompute after snapping
-        requestAnimationFrame(updateAtStart);
-      }
-      // Show video with fade-in after initialization if parent allows
-      if (showVideoFromParent) {
-        setTimeout(() => setShowVideo(true), 300);
-      }
-    });
+    requestAnimationFrame(updateAtStart);
 
     return () => {
       container.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [currentVisibleIndex, onHorizontalScroll]);
 
   // Update video visibility when parent prop changes
   useEffect(() => {
-    console.log('HorizContainer: showVideoFromParent changed to:', showVideoFromParent);
     if (showVideoFromParent) {
-      setTimeout(() => {
-        console.log('HorizContainer: Setting showVideo to true');
-        setShowVideo(true);
-      }, 300);
+      setTimeout(() => setShowVideo(true), 300);
     } else {
-      console.log('HorizContainer: Setting showVideo to false immediately');
       setShowVideo(false);
     }
   }, [showVideoFromParent]);
@@ -227,25 +221,24 @@ export function HorizScrollSnapContainer({
   return (
     <div className={`relative w-full ${containerClassName}`}>
       {/* Fullscreen background video */}
-      <div
-        className="fixed inset-0 z-0"
-        style={{ pointerEvents: "none" }}
-      >
-        {videoURLs.map((url, index) => (
-          <video
-            key={url}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-              currentVideoIndex === index && showVideo ? "opacity-20" : "opacity-0"
-            }`}
-            src={url}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          />
-        ))}
-      </div>
+      {showVideo && (
+        <div className="absolute inset-0 z-0" style={{ pointerEvents: "none" }}>
+          {videoURLs.map((url, index) => (
+            <video
+              key={url}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                currentVideoIndex === index ? "opacity-20" : "opacity-0"
+              }`}
+              src={url}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            />
+          ))}
+        </div>
+      )}
 
       <div
         ref={scrollRef}
