@@ -131,9 +131,9 @@ function WelcomeSection({ companies }: WelcomeSectionProps) {
   );
 }
 
-function ProjectsSection({ projects }: { projects: ProjectSummary[] }) {
+function ProjectsSection({ projects, showVideo }: { projects: ProjectSummary[]; showVideo?: boolean }) {
   return (
-    <HorizScrollSnapContainer containerClassName="h-full w-full">
+    <HorizScrollSnapContainer containerClassName="h-full w-full" showVideo={showVideo}>
       {projects.map((p, index) => (
         <ProjectCard
           key={p.slug}

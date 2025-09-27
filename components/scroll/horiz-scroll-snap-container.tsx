@@ -13,16 +13,27 @@ import {
 import type { AnimationDirection } from "@/hooks/use-project-card-animation";
 import type { ProjectCardProps } from "./project-card";
 
+export const videoURLs = [
+  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-4.mp4",
+  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-3.mp4",
+  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-2.mp4",
+  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-1.mp4",
+];
+
 interface ScrollSnapContainerProps {
   children: ReactNode;
   className?: string;
   containerClassName?: string;
+  onHorizontalScroll?: (index: number) => void;
+  showVideo?: boolean;
 }
 
 export function HorizScrollSnapContainer({
   children,
   className = "",
   containerClassName = "",
+  onHorizontalScroll,
+  showVideo: showVideoFromParent = false,
 }: ScrollSnapContainerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollDirection, setScrollDirection] =
@@ -30,6 +41,9 @@ export function HorizScrollSnapContainer({
   const lastScrollPos = useRef(0);
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
+  const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [showVideo, setShowVideo] = useState(false);
 
   const scrollToNext = () => {
     if (!scrollRef.current) return;
@@ -139,6 +153,28 @@ export function HorizScrollSnapContainer({
       setIsAtEnd(
         lastVisibleIndex >= children.length - 1 && lastVisibleIndex !== -1,
       );
+
+      // Determine the most visible item and call onHorizontalScroll
+      let mostVisibleIndex = 0;
+      let maxVisibleArea = 0;
+
+      for (let i = 0; i < children.length; i++) {
+        const rect = children[i].getBoundingClientRect();
+        const visibleLeft = Math.max(rect.left, contentStartLeft);
+        const visibleRight = Math.min(rect.right, contentEndLeft);
+        const visibleArea = Math.max(0, visibleRight - visibleLeft);
+
+        if (visibleArea > maxVisibleArea) {
+          maxVisibleArea = visibleArea;
+          mostVisibleIndex = i;
+        }
+      }
+
+      if (mostVisibleIndex !== currentVisibleIndex) {
+        setCurrentVisibleIndex(mostVisibleIndex);
+        setCurrentVideoIndex(mostVisibleIndex % videoURLs.length);
+        onHorizontalScroll?.(mostVisibleIndex);
+      }
     };
 
     const handleScroll = () => updateAtStart();
@@ -162,6 +198,10 @@ export function HorizScrollSnapContainer({
         // Recompute after snapping
         requestAnimationFrame(updateAtStart);
       }
+      // Show video with fade-in after initialization if parent allows
+      if (showVideoFromParent) {
+        setTimeout(() => setShowVideo(true), 300);
+      }
     });
 
     return () => {
@@ -170,11 +210,46 @@ export function HorizScrollSnapContainer({
     };
   }, []);
 
+  // Update video visibility when parent prop changes
+  useEffect(() => {
+    console.log('HorizContainer: showVideoFromParent changed to:', showVideoFromParent);
+    if (showVideoFromParent) {
+      setTimeout(() => {
+        console.log('HorizContainer: Setting showVideo to true');
+        setShowVideo(true);
+      }, 300);
+    } else {
+      console.log('HorizContainer: Setting showVideo to false immediately');
+      setShowVideo(false);
+    }
+  }, [showVideoFromParent]);
+
   return (
     <div className={`relative w-full ${containerClassName}`}>
+      {/* Fullscreen background video */}
+      <div
+        className="fixed inset-0 z-0"
+        style={{ pointerEvents: "none" }}
+      >
+        {videoURLs.map((url, index) => (
+          <video
+            key={url}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+              currentVideoIndex === index && showVideo ? "opacity-20" : "opacity-0"
+            }`}
+            src={url}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+        ))}
+      </div>
+
       <div
         ref={scrollRef}
-        className={`flex gap-12  md:gap-14 lg:gap-16 overflow-x-auto snap-x snap-mandatory scrollbar-hide ${className} h-full w-full px-[12.5vw] md:px-[17.5vw] lg:px-[22.5vw] scroll-smooth`}
+        className={`flex gap-12  md:gap-14 lg:gap-16 overflow-x-auto snap-x snap-mandatory scrollbar-hide ${className} h-full w-full px-[12.5vw] md:px-[17.5vw] lg:px-[22.5vw] scroll-smooth relative z-10`}
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",

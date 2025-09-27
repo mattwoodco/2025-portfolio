@@ -1,7 +1,12 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   EmailIcon,
   GitHubIcon,
@@ -10,12 +15,6 @@ import {
 } from "../home/connect-icons";
 import { Button } from "../ui/button";
 
-export const videoURLs = [
-  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-4.mp4",
-  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-3.mp4",
-  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-2.mp4",
-  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-1.mp4",
-];
 
 interface Section {
   title: string;
@@ -29,12 +28,14 @@ interface VerticalScrollSnapContainerProps {
   sections: Section[];
   className?: string;
   containerClassName?: string;
+  onHorizontalScroll?: (index: number) => void;
 }
 
 export function VerticalScrollSnapContainer({
   sections,
   className = "",
   containerClassName = "",
+  onHorizontalScroll,
 }: VerticalScrollSnapContainerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
@@ -97,6 +98,7 @@ export function VerticalScrollSnapContainer({
           Math.min(newIndex, sections.length - 1),
         );
         setCurrentSectionIndex(clampedIndex);
+
       });
     };
 
@@ -112,17 +114,28 @@ export function VerticalScrollSnapContainer({
     };
   }, [sections.length]);
 
+  const handleHorizontalScroll = useCallback(
+    (index: number) => {
+      onHorizontalScroll?.(index);
+    },
+    [onHorizontalScroll],
+  );
+
   return (
     <div className={`relative h-[100dvh] ${containerClassName}`}>
       <div
         ref={scrollRef}
         className={[
-          "overflow-y-auto snap-y snap-mandatory h-[100dvh] transition-opacity duration-300",
+          "overflow-y-auto snap-y snap-mandatory h-[100dvh] transition-opacity duration-300 relative z-20",
           !isInitialized && "opacity-0",
           className,
         ]
           .filter(Boolean)
           .join(" ")}
+        style={{
+          WebkitOverflowScrolling: "touch",
+          touchAction: "pan-y"
+        }}
       >
         {sections.map((section, index) => {
           const defaultBg = [
@@ -141,13 +154,21 @@ export function VerticalScrollSnapContainer({
               key={section.id}
               id={section.id}
               className={[
-                "snap-start h-[100dvh] flex items-center justify-center",
+                "snap-start h-[100dvh] flex items-center justify-center relative z-30",
                 bgClass,
               ]
                 .filter(Boolean)
                 .join(" ")}
             >
-              {section.children}
+              {React.isValidElement(section.children)
+                ? React.cloneElement(
+                    section.children as React.ReactElement<any>,
+                    {
+                      onHorizontalScroll: handleHorizontalScroll,
+                      showVideo: currentSectionIndex === 1,
+                    },
+                  )
+                : section.children}
             </section>
           );
         })}
