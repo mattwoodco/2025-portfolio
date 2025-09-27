@@ -52,6 +52,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* DNS prefetch for external domains */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//vitals.vercel-analytics.com" />
+        <link rel="dns-prefetch" href="//vercel.live" />
+
+        {/* Preconnect to critical external resources */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="preconnect" href="https://vitals.vercel-analytics.com" crossOrigin="" />
+
         {/* Preload critical fonts to reduce critical path latency */}
         <link
           rel="preload"
@@ -67,6 +77,9 @@ export default function RootLayout({
           type="font/woff"
           crossOrigin=""
         />
+
+        {/* Critical CSS inlining hint */}
+        <link rel="preload" href="/_next/static/css/app/layout.css" as="style" />
       </head>
       <body
         className={`${inter.variable} ${goudyOldStyle.variable} ${geistMono.variable} antialiased`}
@@ -79,7 +92,7 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
-        <Analytics />
+        <Analytics debug={false} />
       </body>
     </html>
   );
