@@ -16,7 +16,6 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   // Target modern browsers to avoid legacy polyfills
-  swcMinify: true,
   experimental: {
     // Optimize for modern browsers
     optimizePackageImports: [

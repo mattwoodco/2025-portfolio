@@ -72,12 +72,6 @@ export default function RootLayout({
           crossOrigin=""
         />
 
-        {/* Critical CSS inlining hint */}
-        <link
-          rel="preload"
-          href="/_next/static/css/app/layout.css"
-          as="style"
-        />
       </head>
       <body
         className={`${inter.variable} ${goudyOldStyle.variable} ${geistMono.variable} antialiased`}
