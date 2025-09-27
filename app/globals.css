@@ -298,7 +298,7 @@
   }
 
   .project-card-shimmer::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: 4rem;
@@ -311,11 +311,5 @@
     background-size: 200% 100%;
     animation: border-shimmer 3s linear infinite;
     opacity: 0.8;
-  }
-
-  @media (min-width: 768px) {
-    .project-card-shimmer::before {
-      display: none;
-    }
   }
 }

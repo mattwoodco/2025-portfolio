@@ -10,6 +10,13 @@ import {
 } from "../home/connect-icons";
 import { Button } from "../ui/button";
 
+export const videoURLs = [
+  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-4.mp4",
+  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-3.mp4",
+  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-2.mp4",
+  "https://zxw46isuewmt9wo0.public.blob.vercel-storage.com/video-1.mp4",
+];
+
 interface Section {
   title: string;
   id: string;

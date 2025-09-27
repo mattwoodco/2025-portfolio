@@ -17,10 +17,10 @@ export type ProjectSummary = {
   href: string;
 };
 
-const PROJECTS_DIR = path.join(process.cwd(), "app", "projects");
+const PROJECTS_DIR = path.join(process.cwd(), "projects");
 const PROJECT_ORDER_FILE = path.join(
   process.cwd(),
-  "app/projects/project-order.jsonc",
+  "projects/project-order.jsonc",
 );
 
 function safeEvalObjectLiteral<T = unknown>(objectLiteral: string): T | null {

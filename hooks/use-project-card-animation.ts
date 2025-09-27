@@ -11,8 +11,8 @@ export function useProjectCardAnimation({
   direction = "right",
   delay = 0.15,
 }: UseProjectCardAnimationProps = {}) {
-  // Use percentage-based transforms for consistent visual speed across different element widths
-  const xOffset = direction === "right" ? "-15%" : "15%";
+  // Use screen width-based transforms for consistent visual delta across devices
+  const xOffset = direction === "right" ? "-15vw" : "15vw";
 
   const containerVariants: Variants = {
     hidden: {
@@ -51,7 +51,7 @@ export function useProjectCardAnimation({
     },
     exit: {
       opacity: 0,
-      x: direction === "right" ? "15%" : "-15%",
+      x: direction === "right" ? "15vw" : "-15vw",
       transition: {
         duration: 0.3,
         ease: "easeIn",
@@ -75,7 +75,7 @@ export function useProjectCardAnimation({
     },
     exit: {
       opacity: 0,
-      x: direction === "right" ? "15%" : "-15%",
+      x: direction === "right" ? "15vw" : "-15vw",
       transition: {
         duration: 0.3,
         ease: "easeIn",

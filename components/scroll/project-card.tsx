@@ -42,15 +42,17 @@ export function ProjectCard({
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.3 });
 
-  const { containerVariants, titleVariants, metricVariants, tagContainerVariants, tagVariants } =
-    useProjectCardAnimation({
-      direction: animationDirection,
-      delay: animationDelay,
-    });
+  const {
+    containerVariants,
+    titleVariants,
+    metricVariants,
+    tagContainerVariants,
+    tagVariants,
+  } = useProjectCardAnimation({
+    direction: animationDirection,
+    delay: animationDelay,
+  });
 
-  // Default to main illustration if responsive versions aren't provided
-  const mobileImage = mobileIllustrationUrl || illustrationUrl;
-  const tabletImage = tabletIllustrationUrl || illustrationUrl;
 
   return (
     <div
@@ -61,10 +63,9 @@ export function ProjectCard({
     >
       <motion.div
         className={cn(
-          "size-full flex flex-col justify-center items-center text-gray-800 font-semibold rounded-[4rem] transition-all duration-300 relative overflow-hidden",
-          // Liquid glass gradient border on mobile only
-          "md:bg-black md:border-0",
-          "bg-gradient-to-br from-white/30 via-purple-500/20 to-blue-500/30 p-[1px]",
+          "size-full flex flex-col justify-center items-center text-gray-800 font-semibold rounded-[4rem] md:rounded-[6rem] lg:rounded-[4rem] transition-all duration-300 relative overflow-hidden",
+          // Liquid glass gradient border with shimmer animation
+          "bg-gradient-to-br from-purple-300/30 via-purple-500/25 to-purple-700/30 p-[1px]",
           "project-card-shimmer",
           className,
         )}
@@ -72,34 +73,14 @@ export function ProjectCard({
         initial="hidden"
         animate="visible"
       >
-        <div className="size-full rounded-[4rem] bg-black relative overflow-hidden">
-          {/* Background images with responsive sources */}
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 md:hidden"
-            style={{
-              backgroundImage: `url(${mobileImage})`,
-            }}
-          />
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 hidden md:block lg:hidden"
-            style={{
-              backgroundImage: `url(${tabletImage})`,
-            }}
-          />
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 hidden lg:block"
-            style={{
-              backgroundImage: `url(${illustrationUrl})`,
-            }}
-          />
-
+        <div className="size-full rounded-[4rem] md:rounded-[6rem] lg:rounded-[4rem] bg-black relative overflow-hidden">
           {/* Content overlay */}
           <div className="relative z-10 flex flex-col h-full w-full">
             {/* Main content group - flex-1 */}
-            <div className="flex-1 flex flex-col justify-start md:justify-center items-center gap-6 w-full p-8 md:p-12 pb-0 pt-16 md:pt-8">
+            <div className="flex-1 flex flex-col justify-start md:justify-center items-center gap-6 md:gap-10 w-full p-8 md:p-[4.2rem] pb-0 pt-16 md:pt-[5.292rem]">
               {/* Title with responsive clamp sizing */}
               <motion.h2
-                className="font-serif text-[clamp(1.25rem,calc(1rem+2vw),2.25rem)] md:text-[clamp(2.25rem,calc(1.75rem+3.5vw),5.5rem)] leading-none text-center font-light text-white"
+                className="font-serif text-[clamp(1.25rem,calc(1rem+2vw),2.25rem)] md:text-[clamp(1.18125rem,calc(0.91875rem+1.8375vw),2.8875rem)] leading-none text-center font-light text-white"
                 variants={titleVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
@@ -125,7 +106,7 @@ export function ProjectCard({
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
                 >
-                  <p className="font-sans font-normal text-[clamp(0.75rem,calc(0.65rem+0.75vw),0.875rem)] md:text-[clamp(0.875rem,calc(0.75rem+0.5vw),1rem)]">
+                  <p className="font-sans font-normal text-[clamp(0.75rem,calc(0.65rem+0.75vw),0.875rem)] md:text-[clamp(1rem,calc(0.85rem+0.775vw),1.325rem)]">
                     {description}
                   </p>
 
@@ -142,20 +123,18 @@ export function ProjectCard({
             </div>
 
             {/* Bottom group - tags */}
-            <div className="flex flex-col items-center gap-4 w-full px-8 pb-12 md:p-12 flex-grow-0">
+            <div className="flex flex-col items-center gap-4 w-full px-8 pb-12 md:px-[4.2rem] md:pt-4 md:pb-[5.6rem] flex-grow-0">
               {/* Tags/Skills badges */}
               {tags.length > 0 && (
-                <BadgeGroup
-                  tags={tags.map((tag) => tag.toUpperCase())}
-                  size="sm"
-                  variant="solid"
-                  maxVisible={5}
-                  className="justify-center"
-                  animate={true}
-                  containerVariants={tagContainerVariants}
-                  itemVariants={tagVariants}
-                  isVisible={isInView}
-                />
+                <div className="flex flex-wrap items-center gap-2 md:gap-4 justify-center">
+                  {tags.slice(0, 5).map((tag, index) => (
+                    <motion.div key={tag} variants={tagVariants}>
+                      <div className="inline-flex items-center rounded-full border font-mono font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-white/20 text-white hover:bg-white/30 px-2 py-0.5 !text-[0.55rem] md:!text-[0.9rem] md:px-6 md:py-1.5">
+                        {tag.toUpperCase()}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               )}
             </div>
           </div>
