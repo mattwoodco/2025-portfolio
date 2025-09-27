@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
     // Remove unused imports to reduce bundle size
     removeConsole: process.env.NODE_ENV === "production",
   },
+  // Target modern browsers to avoid legacy polyfills
+  swcMinify: true,
   experimental: {
     // Optimize for modern browsers
     optimizePackageImports: [
@@ -76,6 +78,30 @@ const nextConfig: NextConfig = {
         test: /node_modules\/@vercel\/analytics/,
         sideEffects: false,
       });
+
+      // Exclude Next.js dev tools from production
+      if (process.env.NODE_ENV === "production") {
+        config.resolve.alias = {
+          ...config.resolve.alias,
+          "next/dist/compiled/next-devtools": false,
+        };
+      }
+
+      // Further split vendor chunks for better caching
+      if (config.optimization?.splitChunks?.cacheGroups) {
+        config.optimization.splitChunks.cacheGroups.react = {
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          name: "react",
+          chunks: "all",
+          priority: 15,
+        };
+        config.optimization.splitChunks.cacheGroups.framer = {
+          test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+          name: "framer-motion",
+          chunks: "all",
+          priority: 12,
+        };
+      }
     }
     return config;
   },

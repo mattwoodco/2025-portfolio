@@ -52,27 +52,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* DNS prefetch for external domains */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        {/* DNS prefetch for external domains - only for actually used resources */}
         <link rel="dns-prefetch" href="//vitals.vercel-analytics.com" />
         <link rel="dns-prefetch" href="//vercel.live" />
-
-        {/* Preconnect to critical external resources */}
-        <link
-          rel="preconnect"
-          href="https://fonts.googleapis.com"
-          crossOrigin=""
-        />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <link
-          rel="preconnect"
-          href="https://vitals.vercel-analytics.com"
-          crossOrigin=""
-        />
 
         {/* Preload critical fonts to reduce critical path latency */}
         <link
