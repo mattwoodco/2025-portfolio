@@ -19,6 +19,31 @@ const nextConfig: NextConfig = {
     // Optimize for modern browsers
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },
+  transpilePackages: [],
+  // Optimize webpack for better chunking
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      config.optimization.splitChunks = {
+        chunks: "all",
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendors",
+            chunks: "all",
+            priority: 10,
+          },
+          common: {
+            name: "common",
+            minChunks: 2,
+            chunks: "all",
+            priority: 5,
+            reuseExistingChunk: true,
+          },
+        },
+      };
+    }
+    return config;
+  },
 };
 
 const withMDX = createMDX({

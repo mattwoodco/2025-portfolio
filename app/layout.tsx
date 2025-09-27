@@ -8,8 +8,9 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  display: "swap",
+  display: "optional",
   weight: ["400", "700"],
+  preload: true,
 });
 
 const goudyOldStyle = localFont({
@@ -26,7 +27,8 @@ const goudyOldStyle = localFont({
     },
   ],
   variable: "--font-goudy",
-  display: "swap",
+  display: "optional",
+  preload: false,
 });
 
 const geistMono = Geist_Mono({
@@ -49,6 +51,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Preconnect to critical origins for better performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
+        {/* DNS prefetch for likely future requests */}
+        <link rel="dns-prefetch" href="https://vercel.com" />
+      </head>
       <body
         className={`${inter.variable} ${goudyOldStyle.variable} ${geistMono.variable} antialiased`}
       >
