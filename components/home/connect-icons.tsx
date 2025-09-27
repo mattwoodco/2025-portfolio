@@ -80,7 +80,6 @@ export function XIcon({ className, ...props }: IconProps) {
   );
 }
 
-// Map for easy access by key
 export const socialIcons = {
   linkedin: LinkedInIcon,
   email: EmailIcon,

@@ -1,11 +1,9 @@
-import { BadgeGroup } from "@/components/ui/badge";
-import {
-  type AnimationDirection,
-  useProjectCardAnimation,
-} from "@/hooks/use-project-card-animation";
-import { cn } from "@/lib/utils";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+
+import type { AnimationDirection } from "@/hooks/use-project-card-animation";
+import { useProjectCardAnimation } from "@/hooks/use-project-card-animation";
+import { cn } from "@/lib/utils";
 
 export interface ProjectCardProps {
   title?: string;
@@ -42,17 +40,11 @@ export function ProjectCard({
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.3 });
 
-  const {
-    containerVariants,
-    titleVariants,
-    metricVariants,
-    tagContainerVariants,
-    tagVariants,
-  } = useProjectCardAnimation({
-    direction: animationDirection,
-    delay: animationDelay,
-  });
-
+  const { containerVariants, titleVariants, metricVariants, tagVariants } =
+    useProjectCardAnimation({
+      direction: animationDirection,
+      delay: animationDelay,
+    });
 
   return (
     <div
@@ -127,7 +119,7 @@ export function ProjectCard({
               {/* Tags/Skills badges */}
               {tags.length > 0 && (
                 <div className="flex flex-wrap items-center gap-2 md:gap-4 justify-center">
-                  {tags.slice(0, 5).map((tag, index) => (
+                  {tags.slice(0, 5).map((tag, _index) => (
                     <motion.div key={tag} variants={tagVariants}>
                       <div className="inline-flex items-center rounded-full border font-mono font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-white/20 text-white hover:bg-white/30 px-2 py-0.5 !text-[0.55rem] md:!text-[0.9rem] md:px-6 md:py-1.5">
                         {tag.toUpperCase()}

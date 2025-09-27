@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+
 import {
   BlueNoteRecordsLogo,
   DentsuLogo,
@@ -20,7 +21,6 @@ import { VerticalScrollSnapContainer } from "@/components/scroll/vertical-scroll
 import { Badge } from "@/components/ui/badge";
 import type { ProjectSummary } from "@/lib/projects";
 
-// Animation variants (shared across sections)
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {

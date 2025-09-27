@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+
 import type { AnimationDirection } from "@/hooks/use-project-card-animation";
 import type { ProjectCardProps } from "./project-card";
 
