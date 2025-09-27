@@ -11,6 +11,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  compiler: {
+    // Remove unused imports to reduce bundle size
+    removeConsole: process.env.NODE_ENV === "production",
+  },
+  experimental: {
+    // Optimize for modern browsers
+    optimizePackageImports: ["lucide-react", "framer-motion"],
+  },
 };
 
 const withMDX = createMDX({

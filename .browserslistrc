@@ -1,0 +1,7 @@
+# Modern browsers that support baseline JavaScript features
+# This eliminates unnecessary polyfills for Array.at, Array.flat, etc.
+defaults and supports es6-module
+not IE 11
+not dead
+> 0.5%
+last 2 versions
