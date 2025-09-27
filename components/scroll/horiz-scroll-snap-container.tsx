@@ -272,7 +272,6 @@ export function HorizScrollSnapContainer({
           isAtStart ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
         aria-label="Previous"
-        aria-hidden={isAtStart}
         type="button"
       >
         <svg
@@ -297,7 +296,6 @@ export function HorizScrollSnapContainer({
           isAtEnd ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
         aria-label="Next"
-        aria-hidden={isAtEnd}
         type="button"
       >
         <svg
