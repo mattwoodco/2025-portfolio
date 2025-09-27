@@ -71,7 +71,6 @@ export default function RootLayout({
           type="font/woff"
           crossOrigin=""
         />
-
       </head>
       <body
         className={`${inter.variable} ${goudyOldStyle.variable} ${geistMono.variable} antialiased`}

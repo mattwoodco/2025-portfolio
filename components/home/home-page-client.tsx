@@ -105,29 +105,24 @@ function LogoBadges({ companies }: { companies: LogoCompany[] }) {
 
 function WelcomeSection({ companies }: WelcomeSectionProps) {
   return (
-    <motion.div
-      className="mx-auto max-w-6xl space-y-16 text-left md:space-y-24 px-[10vw] lg:px-4"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
+    <div className="mx-auto max-w-6xl space-y-16 text-left md:space-y-24 px-[10vw] lg:px-4">
       <div className="space-y-0">
-        <motion.h1
-          className="text-[10vh] text-white leading-none tracking-tightest lg:text-9xl font-serif"
-          variants={itemVariants}
-        >
+        <h1 className="text-[10vh] text-white leading-none tracking-tightest lg:text-9xl font-serif">
           Matt Wood
-        </motion.h1>
-        <motion.p
-          className="md:-mt-3 text-gray-400 font-mono text-sm md:pl-3 md:text-lg"
-          variants={itemVariants}
-        >
+        </h1>
+        <p className="md:-mt-3 text-gray-400 font-mono text-sm md:pl-3 md:text-lg">
           Design Engineer | Austin TX
-        </motion.p>
+        </p>
       </div>
 
-      <LogoBadges companies={companies} />
-    </motion.div>
+      <motion.div
+        variants={badgeContainerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <LogoBadges companies={companies} />
+      </motion.div>
+    </div>
   );
 }
 
