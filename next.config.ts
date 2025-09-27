@@ -18,8 +18,8 @@ const nextConfig: NextConfig = {
   experimental: {
     // Optimize for modern browsers
     optimizePackageImports: ["lucide-react", "framer-motion"],
-    // Enable modern compilation for better performance
-    forceSwcTransforms: true,
+    // Enable modern compilation for better performance (production only for Turbopack compatibility)
+    ...(process.env.NODE_ENV === "production" && { forceSwcTransforms: true }),
   },
   // Enable compression
   compress: true,
