@@ -160,8 +160,10 @@ export function VerticalScrollSnapContainer({
             >
               {React.isValidElement(section.children)
                 ? React.cloneElement(
-                    // @biome-ignore lint/style/noNonNullAssertion: any
-                    section.children as React.ReactElement<any>,
+                    section.children as React.ReactElement<{
+                      onHorizontalScroll?: (index: number) => void;
+                      showVideo?: boolean;
+                    }>,
                     {
                       onHorizontalScroll: handleHorizontalScroll,
                       ...(index === 1 &&

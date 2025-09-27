@@ -222,13 +222,20 @@ export function HorizScrollSnapContainer({
     <div className={`relative w-full ${containerClassName}`}>
       {/* Fullscreen background video */}
       {showVideo && (
-        <div className="absolute inset-0 z-0 animate-in fade-in duration-1000" style={{ pointerEvents: "none" }}>
+        <div
+          className="absolute inset-0 z-0 animate-in fade-in duration-1000"
+          style={{ pointerEvents: "none" }}
+        >
           {videoURLs.map((url, index) => (
             <video
               key={url}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
                 currentVideoIndex === index ? "opacity-20" : "opacity-0"
               }`}
+              style={{
+                filter: "saturate(0)",
+                mixBlendMode: "multiply",
+              }}
               src={url}
               autoPlay
               muted
