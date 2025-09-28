@@ -40,7 +40,7 @@ export function ProjectCard({
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.3 });
 
-  const { containerVariants, titleVariants, metricVariants, tagVariants } =
+  const { containerVariants, titleVariants, metricVariants, tagContainerVariants, tagVariants } =
     useProjectCardAnimation({
       direction: animationDirection,
       delay: animationDelay,
@@ -119,7 +119,12 @@ export function ProjectCard({
             <div className="flex flex-col items-center -gap-1 w-full px-8 pb-12 md:px-[4.2rem] md:-mt-2 md:pb-[5.6rem] flex-grow-0">
               {/* Tags/Skills badges */}
               {tags.length > 0 && (
-                <div className="flex flex-wrap items-center gap-2 md:gap-4 justify-center">
+                <motion.div
+                  className="flex flex-wrap items-center gap-2 md:gap-4 justify-center"
+                  variants={tagContainerVariants}
+                  initial="hidden"
+                  animate={isInView ? "visible" : "hidden"}
+                >
                   {tags.slice(0, 5).map((tag, _index) => (
                     <motion.div key={tag} variants={tagVariants}>
                       <div className="inline-flex items-center justify-center rounded-full border font-mono font-medium leading-none transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-white/20 text-white hover:bg-white/30 text-xs md:text-sm lg:text-sm xl:text-base px-2 pt-1 pb-1 md:px-3 md:pt-1 md:pb-1 lg:px-4 lg:pt-1.5 lg:pb-1.5 xl:px-6 xl:pt-2 xl:pb-2">
@@ -127,7 +132,7 @@ export function ProjectCard({
                       </div>
                     </motion.div>
                   ))}
-                </div>
+                </motion.div>
               )}
             </div>
           </div>
