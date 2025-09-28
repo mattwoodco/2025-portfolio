@@ -104,7 +104,7 @@ export function ProjectCard({
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
                 >
-                  <p className="font-sans font-normal text-[clamp(0.75rem,calc(0.65rem+0.75vw),0.875rem)] md:text-[clamp(0.84rem,calc(0.75rem+0.3vw),0.94rem)] lg:text-[clamp(1rem,calc(0.85rem+0.775vw),1.325rem)]">
+                  <p className="font-sans font-normal text-[clamp(0.7rem,calc(0.6rem+0.7vw),0.8rem)] md:text-[clamp(0.84rem,calc(0.75rem+0.3vw),0.94rem)] lg:text-[clamp(1rem,calc(0.85rem+0.775vw),1.325rem)]">
                     {description}
                   </p>
 
