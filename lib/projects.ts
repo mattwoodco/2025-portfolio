@@ -73,7 +73,7 @@ export async function getAllProjectSummaries(): Promise<ProjectSummary[]> {
       illustrationUrl: meta?.illustrationUrl,
       tabletIllustrationUrl: meta?.tabletIllustrationUrl,
       mobileIllustrationUrl: meta?.mobileIllustrationUrl,
-      href: `/projects/${slug}`,
+      href: `#${slug}`, // Projects link to homepage sections for now
     };
 
     summaries.push(summary);

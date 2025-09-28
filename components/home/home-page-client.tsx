@@ -21,7 +21,7 @@ import { VerticalScrollSnapContainer } from "@/components/scroll/vertical-scroll
 import { Badge } from "@/components/ui/badge";
 import type { ProjectSummary } from "@/lib/projects";
 
-const containerVariants = {
+const _containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -32,7 +32,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const _itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
