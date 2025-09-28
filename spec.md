@@ -442,6 +442,7 @@ export function PersonSchema() {
       'Product Design',
       'Frontend Development',
       'Design Engineering',
+        
     ],
     worksFor: {
       '@type': 'Organization',

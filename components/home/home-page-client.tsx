@@ -87,7 +87,7 @@ function LogoBadges({ companies }: { companies: LogoCompany[] }) {
       {companies.map((company, index) => (
         <motion.div key={company.name} variants={badgeVariants}>
           <Badge
-            className="flex h-20 items-center gap-1 border-0 px-5 py-4 text-white backdrop-blur-sm transition-all duration-500 hover:bg-white/20 max-sm:h-10 md:gap-3 md:px-10 md:py-4 rounded-full"
+            className="flex h-10 sm:h-14 md:h-16 lg:h-20 items-center gap-1 border-0 px-5 py-2 sm:py-3 md:py-4 text-white backdrop-blur-sm transition-all duration-500 hover:bg-white/20 md:gap-3 md:px-10 rounded-full"
             style={{
               backgroundColor: `rgba(255, 255, 255, ${0.12 - index * 0.02})`,
             }}
@@ -111,7 +111,7 @@ function WelcomeSection({ companies }: WelcomeSectionProps) {
           Matt Wood
         </h1>
         <p className="md:-mt-3 text-gray-400 font-mono text-sm md:pl-3 md:text-lg">
-          Design Engineer | Austin TX
+          Design Engineer, Product Manager | Austin TX
         </p>
       </div>
 

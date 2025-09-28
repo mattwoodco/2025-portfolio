@@ -1,9 +1,9 @@
+import { PersonSchema } from "@/components/structured-data/PersonSchema";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
-import { PersonSchema } from "@/components/structured-data/PersonSchema";
-import { ThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -43,13 +43,13 @@ export const metadata: Metadata = {
   title: {
     default:
       "Matt Wood - Design Engineer | JPMorgan, NBC, FM Global, Dentsu, Blue Note Records | Austin TX",
-    template: "%s | Matt Wood - Design Engineer",
+    template: "%s | Matt Wood - Design Engineer, Product Manager",
   },
   description:
     "Product Designer & Engineer based in Austin, TX. Portfolio showcasing work with JPMorgan, NBC, FM Global, Dentsu, and Blue Note Records. Specializing in design systems, user experience, and full-stack development.",
   keywords: [
     "Design Engineer",
-    "Product Designer",
+    "Product Manager",
     "UX Engineer",
     "Austin TX",
     "Portfolio",
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://mattwood.co",
     siteName: "Matt Wood Portfolio",
-    title: "Matt Wood - Design Engineer | Austin TX",
+    title: "Matt Wood - Design Engineer, Product Manager | Austin TX",
     description:
       "Product Designer & Engineer based in Austin, TX. Portfolio showcasing work with Fortune 500 companies.",
     images: [
@@ -90,16 +90,16 @@ export const metadata: Metadata = {
         url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "Matt Wood - Design Engineer Portfolio",
+        alt: "Matt Wood - Design Engineer, Product Manager Portfolio",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Matt Wood - Design Engineer | Austin TX",
+    title: "Matt Wood - Design Engineer, Product Manager | Austin TX",
     description:
-      "Product Designer & Engineer based in Austin, TX. Portfolio showcasing work with Fortune 500 companies.",
+      "Product Designer, Engineer, Product Manager based in Austin, TX. Portfolio showcasing work with Fortune 500 companies.",
     creator: "@mattwoodco",
     images: ["/api/og"],
   },

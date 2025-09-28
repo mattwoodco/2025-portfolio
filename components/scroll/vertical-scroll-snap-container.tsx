@@ -208,7 +208,7 @@ export function VerticalScrollSnapContainer({
               href="https://www.linkedin.com/messaging/compose/?recipient=mattwoodco"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors"
+              className="transition-colors hover:cursor-pointer"
               aria-label="LinkedIn"
               style={{
                 color:
@@ -219,7 +219,7 @@ export function VerticalScrollSnapContainer({
             </a>
             <a
               href="mailto:hello@mattwood.co?subject=Hello%20from%20mattwood.co&body=Hi%20Matt,%0A%0AI%20found%20your%20portfolio%20and%20would%20love%20to%20connect!%0A%0A"
-              className="transition-colors"
+              className="transition-colors hover:cursor-pointer"
               aria-label="Email"
               style={{
                 color:
@@ -232,7 +232,7 @@ export function VerticalScrollSnapContainer({
               href="https://x.com/messages/compose?recipient_id=mattwoodco"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors"
+              className="transition-colors hover:cursor-pointer"
               aria-label="Message on X"
               style={{
                 color:
@@ -243,7 +243,7 @@ export function VerticalScrollSnapContainer({
             </a>
             <a
               href="https://github.com/mattwoodco"
-              className="transition-colors"
+              className="transition-colors hover:cursor-pointer"
               aria-label="GitHub"
               style={{
                 color:

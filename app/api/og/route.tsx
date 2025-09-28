@@ -3,13 +3,45 @@ import type { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
+// Font loading functions
+async function getInterFont() {
+  const response = await fetch(
+    new URL("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap")
+  );
+  const css = await response.text();
+  const fontUrl = css.match(/url\((https:\/\/fonts\.gstatic\.com\/s\/[^)]+)\)/)?.[1];
+
+  if (fontUrl) {
+    const fontResponse = await fetch(fontUrl);
+    return fontResponse.arrayBuffer();
+  }
+  return null;
+}
+
+async function getGoudyFont() {
+  try {
+    const response = await fetch(
+      new URL("../../public/fonts/GoudyStM-webfont.woff", import.meta.url)
+    );
+    return response.arrayBuffer();
+  } catch {
+    return null;
+  }
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const title = searchParams.get("title") || "Matt Wood";
-    const subtitle = searchParams.get("subtitle") || "Design Engineer";
-    const description =
-      searchParams.get("description") || "Based in Austin, TX";
+    const subtitle =
+      searchParams.get("subtitle") || "Design Engineer, Product Manager";
+    const description = searchParams.get("description") || "Austin, TX";
+
+    // Load fonts
+    const [interFont, goudyFont] = await Promise.all([
+      getInterFont(),
+      getGoudyFont(),
+    ]);
 
     return new ImageResponse(
       <div
@@ -20,7 +52,7 @@ export async function GET(request: NextRequest) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "Inter",
+          fontFamily: '"Inter", sans-serif',
           position: "relative",
         }}
       >
@@ -96,7 +128,13 @@ export async function GET(request: NextRequest) {
               justifyContent: "center",
             }}
           >
-            {["React", "TypeScript", "Design Systems"].map((tech) => (
+            {[
+              "AI Native",
+              "UX/UI Design",
+              "Data Visualization",
+              "React",
+              "Product Manager",
+            ].map((tech) => (
               <div
                 key={tech}
                 style={{
@@ -117,6 +155,40 @@ export async function GET(request: NextRequest) {
       {
         width: 1200,
         height: 630,
+        fonts: [
+          ...(interFont
+            ? [
+                {
+                  name: "Inter",
+                  data: interFont,
+                  style: "normal" as const,
+                  weight: 400 as const,
+                },
+                {
+                  name: "Inter",
+                  data: interFont,
+                  style: "normal" as const,
+                  weight: 600 as const,
+                },
+                {
+                  name: "Inter",
+                  data: interFont,
+                  style: "normal" as const,
+                  weight: 700 as const,
+                },
+              ]
+            : []),
+          ...(goudyFont
+            ? [
+                {
+                  name: "Goudy Old Style",
+                  data: goudyFont,
+                  style: "normal" as const,
+                  weight: 400 as const,
+                },
+              ]
+            : []),
+        ],
       },
     );
   } catch (error) {
