@@ -230,7 +230,7 @@ export function HorizScrollSnapContainer({
   useEffect(() => {
     if (showVideoFromParent && isFirstVideoReady) {
       // Only show video after first video is loaded
-      setTimeout(() => setShowVideo(true), 300);
+      setTimeout(() => setShowVideo(true), 100);
     } else if (showVideoFromParent && !isFirstVideoReady) {
       // Parent wants to show video but first video isn't ready yet
       // showVideo will be set to true when isFirstVideoReady becomes true
@@ -242,7 +242,7 @@ export function HorizScrollSnapContainer({
   // Auto-show video when first video becomes ready (if parent wants it shown)
   useEffect(() => {
     if (isFirstVideoReady && showVideoFromParent && !showVideo) {
-      setTimeout(() => setShowVideo(true), 300);
+      setTimeout(() => setShowVideo(true), 100);
     }
   }, [isFirstVideoReady, showVideoFromParent, showVideo]);
 
