@@ -69,7 +69,7 @@ export function ProjectCard({
           {/* Content overlay */}
           <div className="relative z-10 flex flex-col h-full w-full">
             {/* Main content group - flex-1 */}
-            <div className="flex-1 flex flex-col justify-start md:justify-center items-center gap-6 md:gap-10 w-full p-8 md:p-[4.2rem] pb-0 pt-16 md:pt-[5.292rem]">
+            <div className="flex-1 flex flex-col justify-start md:justify-center items-center gap-4 md:gap-6 w-full p-8 md:p-[4.2rem] pb-0 pt-16 md:pt-[5.292rem]">
               {/* Title with responsive clamp sizing */}
               <motion.h2
                 className="font-serif text-[clamp(1.25rem,calc(1rem+2vw),2.25rem)] md:text-[clamp(1.18125rem,calc(0.91875rem+1.8375vw),2.8875rem)] leading-none text-center font-light text-white"
@@ -82,7 +82,8 @@ export function ProjectCard({
 
               {/* Metric with responsive sizing */}
               <motion.div
-                className="font-serif text-[clamp(1.75rem,calc(1.5rem+1.5vw),2.5rem)] md:text-[clamp(2rem,calc(1.5rem+2.5vw),4rem)] font-light leading-none italic text-white text-center"
+                className="font-serif text-[clamp(1.75rem,calc(1.5rem+1.5vw),2.5rem)] md:text-[clamp(1.5rem,calc(1.25rem+2vw),3rem)] lg:text-[clamp(1.5rem,calc(1.25rem+1.5vw),2.5rem)] xl:text-[clamp(2rem,calc(1.5rem+2.5vw),4rem)] font-light leading-none italic text-white text-center"
+                style={{ textWrap: "balance" }}
                 variants={metricVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
@@ -115,7 +116,7 @@ export function ProjectCard({
             </div>
 
             {/* Bottom group - tags */}
-            <div className="flex flex-col items-center gap-4 w-full px-8 pb-12 md:px-[4.2rem] md:pt-4 md:pb-[5.6rem] flex-grow-0">
+            <div className="flex flex-col items-center -gap-1 w-full px-8 pb-12 md:px-[4.2rem] md:-mt-2 md:pb-[5.6rem] flex-grow-0">
               {/* Tags/Skills badges */}
               {tags.length > 0 && (
                 <div className="flex flex-wrap items-center gap-2 md:gap-4 justify-center">
