@@ -122,7 +122,7 @@ export function ProjectCard({
                 <div className="flex flex-wrap items-center gap-2 md:gap-4 justify-center">
                   {tags.slice(0, 5).map((tag, _index) => (
                     <motion.div key={tag} variants={tagVariants}>
-                      <div className="inline-flex items-center rounded-full border font-mono font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-white/20 text-white hover:bg-white/30 px-2 py-0.5 !text-[0.55rem] md:!text-[0.9rem] md:px-6 md:py-1.5">
+                      <div className="inline-flex items-center rounded-full border font-mono font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-white/20 text-white hover:bg-white/30 text-xs md:text-sm lg:text-sm xl:text-base px-2 py-1 md:px-3 md:py-1 lg:px-4 lg:py-1.5 xl:px-6 xl:py-2">
                         {tag.toUpperCase()}
                       </div>
                     </motion.div>
