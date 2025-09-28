@@ -55,7 +55,7 @@ export function ProjectCard({
     >
       <motion.div
         className={cn(
-          "size-full flex flex-col justify-center items-center text-gray-800 font-semibold rounded-[4rem] md:rounded-[6rem] lg:rounded-[4rem] transition-all duration-300 relative overflow-hidden",
+          "size-full flex flex-col justify-center items-center text-gray-800 font-semibold rounded-[4rem] md:rounded-[8rem] transition-all duration-300 relative overflow-hidden",
           // Liquid glass gradient border with shimmer animation
           "bg-gradient-to-br from-purple-300/30 via-purple-500/25 to-purple-700/30 p-[1px]",
           "project-card-shimmer",
@@ -65,7 +65,7 @@ export function ProjectCard({
         initial="hidden"
         animate="visible"
       >
-        <div className="size-full rounded-[4rem] md:rounded-[6rem] lg:rounded-[4rem] bg-black relative overflow-hidden">
+        <div className="size-full rounded-[4rem] md:rounded-[8rem] bg-black relative overflow-hidden">
           {/* Content overlay */}
           <div className="relative z-10 flex flex-col h-full w-full">
             {/* Main content group - flex-1 */}

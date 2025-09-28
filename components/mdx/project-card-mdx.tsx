@@ -17,7 +17,7 @@ export default function ProjectCard({
   href,
 }: ProjectCardProps) {
   return (
-    <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg dark:hover:shadow-gray-900/50 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 group bg-white dark:bg-gray-900">
+    <div className="border border-gray-200 dark:border-gray-700 rounded-lg md:rounded-[2rem] overflow-hidden hover:shadow-lg dark:hover:shadow-gray-900/50 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 group bg-white dark:bg-gray-900">
       {imageUrl && (
         <div className="relative w-full h-48 overflow-hidden">
           <Image

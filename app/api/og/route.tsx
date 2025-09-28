@@ -6,10 +6,14 @@ export const runtime = "edge";
 // Font loading functions
 async function getInterFont() {
   const response = await fetch(
-    new URL("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap")
+    new URL(
+      "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap",
+    ),
   );
   const css = await response.text();
-  const fontUrl = css.match(/url\((https:\/\/fonts\.gstatic\.com\/s\/[^)]+)\)/)?.[1];
+  const fontUrl = css.match(
+    /url\((https:\/\/fonts\.gstatic\.com\/s\/[^)]+)\)/,
+  )?.[1];
 
   if (fontUrl) {
     const fontResponse = await fetch(fontUrl);
@@ -18,10 +22,10 @@ async function getInterFont() {
   return null;
 }
 
-async function getGoudyFont() {
+async function getGoudyFont(baseUrl: string) {
   try {
     const response = await fetch(
-      new URL("../../public/fonts/GoudyStM-webfont.woff", import.meta.url)
+      new URL("/fonts/GoudyStM-webfont.woff", baseUrl),
     );
     return response.arrayBuffer();
   } catch {
@@ -38,9 +42,10 @@ export async function GET(request: NextRequest) {
     const description = searchParams.get("description") || "Austin, TX";
 
     // Load fonts
+    const baseUrl = new URL(request.url).origin;
     const [interFont, goudyFont] = await Promise.all([
       getInterFont(),
-      getGoudyFont(),
+      getGoudyFont(baseUrl),
     ]);
 
     return new ImageResponse(

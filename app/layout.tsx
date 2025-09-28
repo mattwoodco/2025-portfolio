@@ -1,9 +1,9 @@
-import { PersonSchema } from "@/components/structured-data/PersonSchema";
-import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
+import { PersonSchema } from "@/components/structured-data/PersonSchema";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
 
 const inter = Inter({
