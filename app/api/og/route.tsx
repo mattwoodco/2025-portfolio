@@ -33,6 +33,17 @@ async function getGoudyFont(baseUrl: string) {
   }
 }
 
+async function getAvatar(baseUrl: string) {
+  try {
+    const response = await fetch(new URL("/avatar.jpg", baseUrl));
+    const arrayBuffer = await response.arrayBuffer();
+    const base64 = Buffer.from(arrayBuffer).toString('base64');
+    return `data:image/jpeg;base64,${base64}`;
+  } catch {
+    return null;
+  }
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -41,11 +52,12 @@ export async function GET(request: NextRequest) {
       searchParams.get("subtitle") || "Design Engineer, Product Manager";
     const description = searchParams.get("description") || "Austin, TX";
 
-    // Load fonts
+    // Load fonts and avatar
     const baseUrl = new URL(request.url).origin;
-    const [interFont, goudyFont] = await Promise.all([
+    const [interFont, goudyFont, avatar] = await Promise.all([
       getInterFont(),
       getGoudyFont(baseUrl),
+      getAvatar(baseUrl),
     ]);
 
     return new ImageResponse(
@@ -86,6 +98,22 @@ export async function GET(request: NextRequest) {
             maxWidth: "1000px",
           }}
         >
+          {/* Avatar */}
+          {avatar && (
+            <img
+              src={avatar}
+              alt="Avatar"
+              style={{
+                width: "120px",
+                height: "120px",
+                borderRadius: "50%",
+                marginBottom: "30px",
+                border: "4px solid rgba(255, 255, 255, 0.2)",
+                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+              }}
+            />
+          )}
+
           {/* Main Title */}
           <div
             style={{
