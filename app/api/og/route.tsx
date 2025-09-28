@@ -37,7 +37,7 @@ async function getAvatar(baseUrl: string) {
   try {
     const response = await fetch(new URL("/avatar.jpg", baseUrl));
     const arrayBuffer = await response.arrayBuffer();
-    const base64 = Buffer.from(arrayBuffer).toString('base64');
+    const base64 = Buffer.from(arrayBuffer).toString("base64");
     return `data:image/jpeg;base64,${base64}`;
   } catch {
     return null;
@@ -46,24 +46,103 @@ async function getAvatar(baseUrl: string) {
 
 export async function GET(request: NextRequest) {
   try {
+    console.log("🔍 OG Route: Starting request processing");
+
     const { searchParams } = new URL(request.url);
     const title = searchParams.get("title") || "Matt Wood";
     const subtitle =
-      searchParams.get("subtitle") || "Design Engineer, Product Manager";
-    const description = searchParams.get("description") || "Austin, TX";
+      searchParams.get("subtitle") || "Design Engineer | Austin, TX";
+    const description = searchParams.get("description") || "";
 
-    // Load fonts and avatar
+    console.log("🔍 OG Route: Parsed params", { title, subtitle, description });
+
+    // Load fonts and avatar with detailed logging
     const baseUrl = new URL(request.url).origin;
-    const [interFont, goudyFont, avatar] = await Promise.all([
-      getInterFont(),
-      getGoudyFont(baseUrl),
-      getAvatar(baseUrl),
-    ]);
+    console.log("🔍 OG Route: Base URL", baseUrl);
+
+    console.log("🔍 OG Route: Starting font/avatar loading");
+    let interFont: ArrayBuffer | null;
+    let goudyFont: ArrayBuffer | null;
+    let avatar: string | null;
+
+    try {
+      interFont = await getInterFont();
+      console.log(
+        "🔍 OG Route: Inter font result",
+        interFont ? "SUCCESS" : "NULL",
+      );
+    } catch (error) {
+      console.error("❌ OG Route: Inter font error", error);
+      interFont = null;
+    }
+
+    try {
+      goudyFont = await getGoudyFont(baseUrl);
+      console.log(
+        "🔍 OG Route: Goudy font result",
+        goudyFont ? "SUCCESS" : "NULL",
+      );
+    } catch (error) {
+      console.error("❌ OG Route: Goudy font error", error);
+      goudyFont = null;
+    }
+
+    try {
+      avatar = await getAvatar(baseUrl);
+      console.log("🔍 OG Route: Avatar result", avatar ? "SUCCESS" : "NULL");
+    } catch (error) {
+      console.error("❌ OG Route: Avatar error", error);
+      avatar = null;
+    }
+
+    console.log("🔍 OG Route: All resources loaded, creating ImageResponse");
+
+    // Build fonts array with logging
+    const fontsArray = [];
+    console.log("🔍 OG Route: Building fonts array");
+
+    if (interFont) {
+      console.log("🔍 OG Route: Adding Inter font to array");
+      fontsArray.push(
+        {
+          name: "Inter",
+          data: interFont,
+          style: "normal" as const,
+          weight: 400 as const,
+        },
+        {
+          name: "Inter",
+          data: interFont,
+          style: "normal" as const,
+          weight: 600 as const,
+        },
+        {
+          name: "Inter",
+          data: interFont,
+          style: "normal" as const,
+          weight: 700 as const,
+        },
+      );
+    }
+
+    if (goudyFont) {
+      console.log("🔍 OG Route: Adding Goudy font to array");
+      fontsArray.push({
+        name: "Goudy Old Style",
+        data: goudyFont,
+        style: "normal" as const,
+        weight: 400 as const,
+      });
+    }
+
+    console.log("🔍 OG Route: Final fonts array length:", fontsArray.length);
 
     return new ImageResponse(
       <div
         style={{
-          background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
+          background:
+            "radial-gradient(ellipse 80% 80% at 50% -20%, rgba(59, 130, 246, 0.3), black), radial-gradient(ellipse 80% 80% at 80% 50%, rgba(59, 130, 246, 0.15), transparent), radial-gradient(ellipse 80% 80% at 20% 80%, rgba(99, 102, 241, 0.15), transparent)",
+          backgroundColor: "black",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -73,28 +152,15 @@ export async function GET(request: NextRequest) {
           position: "relative",
         }}
       >
-        {/* Background Pattern */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            opacity: 0.1,
-            background: `
-                radial-gradient(circle at 25% 25%, #3b82f6 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, #8b5cf6 0%, transparent 50%)
-              `,
-          }}
-        />
-
         {/* Content Container */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
+            alignItems: "flex-start",
+            textAlign: "left",
             color: "white",
-            padding: "80px",
+            padding: "80px 20px",
             maxWidth: "1000px",
           }}
         >
@@ -104,8 +170,8 @@ export async function GET(request: NextRequest) {
               src={avatar}
               alt="Avatar"
               style={{
-                width: "120px",
-                height: "120px",
+                width: "240px",
+                height: "240px",
                 borderRadius: "50%",
                 marginBottom: "30px",
                 border: "4px solid rgba(255, 255, 255, 0.2)",
@@ -117,13 +183,13 @@ export async function GET(request: NextRequest) {
           {/* Main Title */}
           <div
             style={{
-              fontSize: "72px",
+              fontSize: "64px",
               fontWeight: "bold",
               marginBottom: "20px",
               background: "linear-gradient(90deg, #ffffff 0%, #e2e8f0 100%)",
               backgroundClip: "text",
               color: "transparent",
-              textAlign: "center",
+              textAlign: "left",
             }}
           >
             {title}
@@ -132,7 +198,7 @@ export async function GET(request: NextRequest) {
           {/* Subtitle */}
           <div
             style={{
-              fontSize: "36px",
+              fontSize: "32px",
               marginBottom: "30px",
               color: "#94a3b8",
               fontWeight: "600",
@@ -142,15 +208,17 @@ export async function GET(request: NextRequest) {
           </div>
 
           {/* Description */}
-          <div
-            style={{
-              fontSize: "24px",
-              color: "#cbd5e1",
-              marginBottom: "40px",
-            }}
-          >
-            {description}
-          </div>
+          {description && (
+            <div
+              style={{
+                fontSize: "32px",
+                color: "#cbd5e1",
+                marginBottom: "40px",
+              }}
+            >
+              {description}
+            </div>
+          )}
 
           {/* Tech Badge */}
           <div
@@ -158,74 +226,36 @@ export async function GET(request: NextRequest) {
               display: "flex",
               gap: "15px",
               flexWrap: "wrap",
-              justifyContent: "center",
+              justifyContent: "flex-start",
             }}
           >
-            {[
-              "AI Native",
-              "UX/UI Design",
-              "Data Visualization",
-              "React",
-              "Product Manager",
-            ].map((tech) => (
-              <div
-                key={tech}
-                style={{
-                  background: "rgba(59, 130, 246, 0.2)",
-                  border: "1px solid rgba(59, 130, 246, 0.3)",
-                  padding: "8px 16px",
-                  borderRadius: "8px",
-                  fontSize: "18px",
-                  color: "#93c5fd",
-                }}
-              >
-                {tech}
-              </div>
-            ))}
+            {["AI Native", "UX/UI Design", "Data Visualization", "React"].map(
+              (tech) => (
+                <div
+                  key={tech}
+                  style={{
+                    background: "rgba(59, 130, 246, 0.2)",
+                    padding: "12px 16px",
+                    borderRadius: "999px",
+                    fontSize: "24px",
+                    color: "#93c5fd",
+                  }}
+                >
+                  {tech}
+                </div>
+              ),
+            )}
           </div>
         </div>
       </div>,
       {
         width: 1200,
         height: 630,
-        fonts: [
-          ...(interFont
-            ? [
-                {
-                  name: "Inter",
-                  data: interFont,
-                  style: "normal" as const,
-                  weight: 400 as const,
-                },
-                {
-                  name: "Inter",
-                  data: interFont,
-                  style: "normal" as const,
-                  weight: 600 as const,
-                },
-                {
-                  name: "Inter",
-                  data: interFont,
-                  style: "normal" as const,
-                  weight: 700 as const,
-                },
-              ]
-            : []),
-          ...(goudyFont
-            ? [
-                {
-                  name: "Goudy Old Style",
-                  data: goudyFont,
-                  style: "normal" as const,
-                  weight: 400 as const,
-                },
-              ]
-            : []),
-        ],
+        fonts: fontsArray,
       },
     );
-  } catch (error) {
-    console.error("OG Image generation failed:", error);
+  } catch (error: unknown) {
+    console.error("❌ OG Route: Unexpected error", error);
     return new Response("Failed to generate image", { status: 500 });
   }
 }

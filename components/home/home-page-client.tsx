@@ -111,7 +111,7 @@ function WelcomeSection({ companies }: WelcomeSectionProps) {
           Matt Wood
         </h1>
         <p className="md:-mt-3 text-gray-400 font-mono text-sm md:pl-3 md:text-lg">
-          Design Engineer, Product Manager | Austin TX
+          Design Engineer | Austin TX
         </p>
       </div>
 

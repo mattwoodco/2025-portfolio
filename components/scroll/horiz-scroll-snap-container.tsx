@@ -44,6 +44,23 @@ export function HorizScrollSnapContainer({
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [showVideo, setShowVideo] = useState(false);
+  const [videosLoaded, setVideosLoaded] = useState<boolean[]>(
+    new Array(videoURLs.length).fill(false),
+  );
+  const [isFirstVideoReady, setIsFirstVideoReady] = useState(false);
+
+  const handleVideoLoaded = (videoIndex: number) => {
+    setVideosLoaded((prev) => {
+      const newState = [...prev];
+      newState[videoIndex] = true;
+      return newState;
+    });
+
+    // Check if the first video (index 0) is ready
+    if (videoIndex === 0) {
+      setIsFirstVideoReady(true);
+    }
+  };
 
   const scrollToNext = () => {
     if (!scrollRef.current) return;
@@ -211,12 +228,23 @@ export function HorizScrollSnapContainer({
 
   // Update video visibility when parent prop changes
   useEffect(() => {
-    if (showVideoFromParent) {
+    if (showVideoFromParent && isFirstVideoReady) {
+      // Only show video after first video is loaded
       setTimeout(() => setShowVideo(true), 300);
+    } else if (showVideoFromParent && !isFirstVideoReady) {
+      // Parent wants to show video but first video isn't ready yet
+      // showVideo will be set to true when isFirstVideoReady becomes true
     } else {
       setShowVideo(false);
     }
-  }, [showVideoFromParent]);
+  }, [showVideoFromParent, isFirstVideoReady]);
+
+  // Auto-show video when first video becomes ready (if parent wants it shown)
+  useEffect(() => {
+    if (isFirstVideoReady && showVideoFromParent && !showVideo) {
+      setTimeout(() => setShowVideo(true), 300);
+    }
+  }, [isFirstVideoReady, showVideoFromParent, showVideo]);
 
   return (
     <div className={`relative w-full ${containerClassName}`}>
@@ -229,8 +257,10 @@ export function HorizScrollSnapContainer({
           {videoURLs.map((url, index) => (
             <video
               key={url}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                currentVideoIndex === index ? "opacity-20" : "opacity-0"
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out ${
+                currentVideoIndex === index && videosLoaded[index]
+                  ? "opacity-20"
+                  : "opacity-0"
               }`}
               style={{
                 filter: "saturate(0)",
@@ -242,6 +272,8 @@ export function HorizScrollSnapContainer({
               loop
               playsInline
               preload="metadata"
+              onCanPlayThrough={() => handleVideoLoaded(index)}
+              onLoadedData={() => handleVideoLoaded(index)}
             />
           ))}
         </div>

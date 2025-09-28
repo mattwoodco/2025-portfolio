@@ -3,7 +3,7 @@ export function PersonSchema() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Matt Wood",
-    jobTitle: "Design Engineer, Product Manager",
+    jobTitle: "Design Engineer",
     description:
       "Product Designer & Engineer based in Austin, TX, specializing in design systems and user experience.",
     url: "https://mattwood.co",
