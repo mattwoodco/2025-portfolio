@@ -40,11 +40,16 @@ export function ProjectCard({
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.3 });
 
-  const { containerVariants, titleVariants, metricVariants, tagContainerVariants, tagVariants } =
-    useProjectCardAnimation({
-      direction: animationDirection,
-      delay: animationDelay,
-    });
+  const {
+    containerVariants,
+    titleVariants,
+    metricVariants,
+    tagContainerVariants,
+    tagVariants,
+  } = useProjectCardAnimation({
+    direction: animationDirection,
+    delay: animationDelay,
+  });
 
   return (
     <div
@@ -69,7 +74,7 @@ export function ProjectCard({
           {/* Content overlay */}
           <div className="relative z-10 flex flex-col h-full w-full">
             {/* Main content group - flex-1 */}
-            <div className="flex-1 flex flex-col justify-start md:justify-center items-center gap-4 md:gap-6 w-full p-8 md:p-[4.2rem] pb-0 pt-16 md:pt-6">
+            <div className="flex-1 flex flex-col justify-start md:justify-center items-center gap-4 md:gap-6 w-full p-8 md:p-[4.2rem] pb-0 pt-24 md:pt-12">
               {/* Title with responsive clamp sizing */}
               <motion.h2
                 className="font-serif text-[clamp(1.25rem,calc(1rem+2vw),2.25rem)] md:text-[clamp(1.18125rem,calc(0.91875rem+1.8375vw),2.8875rem)] leading-none text-center font-light text-white"
