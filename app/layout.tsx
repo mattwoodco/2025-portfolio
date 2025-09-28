@@ -2,8 +2,8 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
-import { ThemeProvider } from "@/components/theme/theme-provider";
 import { PersonSchema } from "@/components/structured-data/PersonSchema";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -39,70 +39,74 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://mattwood.co'),
+  metadataBase: new URL("https://mattwood.co"),
   title: {
-    default: 'Matt Wood - Design Engineer | JPMorgan, NBC, FM Global, Dentsu, Blue Note Records | Austin TX',
-    template: '%s | Matt Wood - Design Engineer'
+    default:
+      "Matt Wood - Design Engineer | JPMorgan, NBC, FM Global, Dentsu, Blue Note Records | Austin TX",
+    template: "%s | Matt Wood - Design Engineer",
   },
-  description: 'Product Designer & Engineer based in Austin, TX. Portfolio showcasing work with JPMorgan, NBC, FM Global, Dentsu, and Blue Note Records. Specializing in design systems, user experience, and full-stack development.',
+  description:
+    "Product Designer & Engineer based in Austin, TX. Portfolio showcasing work with JPMorgan, NBC, FM Global, Dentsu, and Blue Note Records. Specializing in design systems, user experience, and full-stack development.",
   keywords: [
-    'Design Engineer',
-    'Product Designer',
-    'UX Engineer',
-    'Austin TX',
-    'Portfolio',
-    'JPMorgan',
-    'NBC',
-    'FM Global',
-    'Dentsu',
-    'Blue Note Records',
-    'React',
-    'TypeScript',
-    'Design Systems',
-    'User Experience',
-    'Full Stack Developer'
+    "Design Engineer",
+    "Product Designer",
+    "UX Engineer",
+    "Austin TX",
+    "Portfolio",
+    "JPMorgan",
+    "NBC",
+    "FM Global",
+    "Dentsu",
+    "Blue Note Records",
+    "React",
+    "TypeScript",
+    "Design Systems",
+    "User Experience",
+    "Full Stack Developer",
   ],
-  authors: [{ name: 'Matt Wood', url: 'https://mattwood.co' }],
-  creator: 'Matt Wood',
+  authors: [{ name: "Matt Wood", url: "https://mattwood.co" }],
+  creator: "Matt Wood",
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://mattwood.co',
-    siteName: 'Matt Wood Portfolio',
-    title: 'Matt Wood - Design Engineer | Austin TX',
-    description: 'Product Designer & Engineer based in Austin, TX. Portfolio showcasing work with Fortune 500 companies.',
+    type: "website",
+    locale: "en_US",
+    url: "https://mattwood.co",
+    siteName: "Matt Wood Portfolio",
+    title: "Matt Wood - Design Engineer | Austin TX",
+    description:
+      "Product Designer & Engineer based in Austin, TX. Portfolio showcasing work with Fortune 500 companies.",
     images: [
       {
-        url: '/api/og',
+        url: "/api/og",
         width: 1200,
         height: 630,
-        alt: 'Matt Wood - Design Engineer Portfolio',
-        type: 'image/png',
+        alt: "Matt Wood - Design Engineer Portfolio",
+        type: "image/png",
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Matt Wood - Design Engineer | Austin TX',
-    description: 'Product Designer & Engineer based in Austin, TX. Portfolio showcasing work with Fortune 500 companies.',
-    creator: '@mattwoodco',
-    images: ['/api/og'],
+    card: "summary_large_image",
+    title: "Matt Wood - Design Engineer | Austin TX",
+    description:
+      "Product Designer & Engineer based in Austin, TX. Portfolio showcasing work with Fortune 500 companies.",
+    creator: "@mattwoodco",
+    images: ["/api/og"],
   },
   alternates: {
-    canonical: 'https://mattwood.co',
+    canonical: "https://mattwood.co",
   },
-  category: 'Design & Development',
+  category: "Design & Development",
 };
 
 export default function RootLayout({
