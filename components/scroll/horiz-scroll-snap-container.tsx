@@ -249,35 +249,35 @@ export function HorizScrollSnapContainer({
   return (
     <div className={`relative w-full ${containerClassName}`}>
       {/* Fullscreen background video */}
-      {showVideo && (
-        <div
-          className="absolute inset-0 z-0 animate-in fade-in duration-1000"
-          style={{ pointerEvents: "none" }}
-        >
-          {videoURLs.map((url, index) => (
-            <video
-              key={url}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out ${
-                currentVideoIndex === index && videosLoaded[index]
-                  ? "opacity-20"
-                  : "opacity-0"
-              }`}
-              style={{
-                filter: "saturate(0)",
-                mixBlendMode: "multiply",
-              }}
-              src={url}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              onCanPlayThrough={() => handleVideoLoaded(index)}
-              onLoadedData={() => handleVideoLoaded(index)}
-            />
-          ))}
-        </div>
-      )}
+      <div
+        className={`absolute inset-0 z-0 transition-opacity duration-1000 ${
+          showVideo ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ pointerEvents: "none" }}
+      >
+        {videoURLs.map((url, index) => (
+          <video
+            key={url}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out ${
+              currentVideoIndex === index && videosLoaded[index] && showVideo
+                ? "opacity-20"
+                : "opacity-0"
+            }`}
+            style={{
+              filter: "saturate(0)",
+              mixBlendMode: "multiply",
+            }}
+            src={url}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            onCanPlayThrough={() => handleVideoLoaded(index)}
+            onLoadedData={() => handleVideoLoaded(index)}
+          />
+        ))}
+      </div>
 
       <div
         ref={scrollRef}
