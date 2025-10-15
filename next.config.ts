@@ -3,6 +3,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  // Disable trailing slash redirects to prevent indexing issues
+  trailingSlash: false,
+  // Skip trailing slash redirect to avoid duplicate content issues
+  skipTrailingSlashRedirect: true,
   images: {
     remotePatterns: [
       {

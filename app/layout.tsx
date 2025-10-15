@@ -117,7 +117,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href="https://mattwood.co" />
 
         {/* DNS prefetch for external domains - only for actually used resources */}
         <link rel="dns-prefetch" href="//vitals.vercel-analytics.com" />
